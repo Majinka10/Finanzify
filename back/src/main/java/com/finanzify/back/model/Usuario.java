@@ -13,7 +13,7 @@ public class Usuario {
     @Id
     private String correo;
     
-    private String contraseña;
+    private String contrasena;
     private String nombre;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -39,12 +39,12 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contraseña) {
+        this.contrasena = contraseña;
     }
 
     public String getNombre() {
