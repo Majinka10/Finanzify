@@ -3,6 +3,7 @@ package com.finanzify.back.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,12 +21,12 @@ public class UsuarioController {
     private UsuarioService usuarioService;
     
     @GetMapping
-    public List<Usuario> getuUsuarios(){
-        return usuarioService.getUsuarios();
+    public ResponseEntity<List<Usuario>> getuUsuarios(){
+        return ResponseEntity.ok(usuarioService.getUsuarios());
     }
 
     @PostMapping
-    public Usuario ingresoUsuario(@RequestBody Usuario user){
-        return usuarioService.ingresousUsuario(user);
+    public ResponseEntity<Usuario> ingresoUsuario(@RequestBody Usuario user){
+        return ResponseEntity.ok(usuarioService.ingresousUsuario(user));
     }
 }
