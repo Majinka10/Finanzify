@@ -1,34 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient,  HttpClientModule } from '@angular/common/http';
+import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IngresoComponent } from './ingreso/ingreso.component';
+import { PrincipalComponent } from './principal/principal.component';
+import { UsuarioService } from './services/usuarios/usuario.service';
 
 @Component({
-  selector: 'app-root',
-  standalone:true,
-  imports:[HttpClientModule, CommonModule],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    imports: [CommonModule, IngresoComponent, PrincipalComponent]
 })
-export class AppComponent implements OnInit {
-  title = 'Usuarios';
-  users: any[] = [];
+export class AppComponent {
+  title = 'Ingreso';
 
-  constructor(private http: HttpClient) {}
+  constructor(public usuarioService : UsuarioService){}
 
-  ngOnInit(): void {
-    this.getUsers();
-  }
-
-  getUsers(): void {
-    const url = 'http://localhost:8080/usuarios';
-    this.http.get<any[]>(url).subscribe(
-      users => {
-        this.users = users;
-      },
-      error => {
-        console.error('Error al obtener la lista de usuarios:', error);
-      }
-    );
-  }
 }
 

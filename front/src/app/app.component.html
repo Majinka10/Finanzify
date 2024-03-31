@@ -1,16 +1,5 @@
-<table>
-  <thead>
-    <tr>
-      <th>Correo</th>
-      <th>Nombre</th>
-      <th>Contraseña</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.correo }}</td>
-      <td>{{ user.nombre }}</td>
-      <td>{{ user.contrasena }}</td>
-    </tr>
-  </tbody>
-</table>
+@if (usuarioService.isLogueado()) {
+    <app-principal></app-principal>
+}@else{
+    <app-ingreso></app-ingreso>
+}
