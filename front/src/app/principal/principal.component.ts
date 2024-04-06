@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../services/usuarios/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-principal',
@@ -10,10 +11,14 @@ import { UsuarioService } from '../services/usuarios/usuario.service';
 })
 export class PrincipalComponent {
   
-  constructor(public usuarioService : UsuarioService){}
+  constructor(
+    public usuarioService : UsuarioService,
+    private router: Router
+    ){}
 
   salir(){
     this.usuarioService.logout()
+    this.router.navigate(['/ingreso'])
   }
 
 }

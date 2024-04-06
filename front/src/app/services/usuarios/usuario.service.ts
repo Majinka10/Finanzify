@@ -2,7 +2,7 @@ import {HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'any'
+  providedIn: 'root'
 })
 export class UsuarioService {
 
@@ -24,6 +24,7 @@ export class UsuarioService {
 
   logout(){
     this.usuarioLogueado = false;
+    this.usuario_activo = '';
   }
 
   isLogueado(){

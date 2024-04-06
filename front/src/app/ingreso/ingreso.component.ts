@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../services/usuarios/usuario.service'
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ingreso',
@@ -14,7 +14,8 @@ import { RouterLink } from '@angular/router';
 export class IngresoComponent {
 
   constructor(
-    private usuarioService : UsuarioService
+    private usuarioService : UsuarioService,
+    private router: Router
   ){}
 
   correo: string = '';
@@ -28,7 +29,11 @@ export class IngresoComponent {
     .subscribe(
       response => {
         this.contrasena = ""
-        alert("inicio de sesion")
+        this.mensage = "";
+        this.mostrar_mensaje = false;
+        this.usuarioService.ingreso(this.correo)
+        this.router.navigate(['/principal']);
+
         this.correo = "";
       },
       error => {
