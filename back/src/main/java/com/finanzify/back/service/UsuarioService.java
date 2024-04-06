@@ -27,7 +27,7 @@ public class UsuarioService {
         Usuario user = findByCorreo(correo);
         if(user == null){
             return false;
-        }else if (user.getContrasena().equals(contrasena)){
+        }else if (passwordEncoder.matches(contrasena, user.getContrasena())){/*compara si es la contraseña */
             return true;
         }else{
             return false;
@@ -38,7 +38,7 @@ public class UsuarioService {
         /*encriptando contraseña */
         String contrasena_code = passwordEncoder.encode(user.getContrasena());
         user.setContrasena(contrasena_code);
-        
+
         return repo.save(user);
     }
 
