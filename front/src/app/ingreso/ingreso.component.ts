@@ -28,7 +28,7 @@ export class IngresoComponent {
     .subscribe(
       response => {
         this.contrasena = ""
-        this.usuarioService.ingreso(this.correo);
+        alert("inicio de sesion")
         this.correo = "";
       },
       error => {

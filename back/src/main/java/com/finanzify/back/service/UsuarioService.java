@@ -1,6 +1,7 @@
 package com.finanzify.back.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,24 @@ public class UsuarioService {
         return repo.findAll();
     }
 
+    public Boolean validarContrasena(String correo, String contrasena){
+        Usuario user = findByCorreo(correo);
+        if(user == null){
+            return false;
+        }else if (user.getContrasena().equals(contrasena)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public Usuario registroUsuario(Usuario user){
         return repo.save(user);
+    }
+
+    public Usuario findByCorreo(String correo){
+        Optional<Usuario> optionalUsuario = repo.findById(correo);
+        return optionalUsuario.orElse(null);
     }
 
 }

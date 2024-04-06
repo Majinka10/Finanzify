@@ -35,23 +35,17 @@ public class UsuarioController {
         String correo = user.getCorreo();
         String contrasena = user.getContrasena();
 
-        List<Usuario> usuarios = usuarioService.getUsuarios();
+        Usuario u = usuarioService.findByCorreo(correo);
 
-        for(Usuario usuario : usuarios){
-            if(correo.equals(usuario.getCorreo())){
-                /*
-                Aqui agregaremos HASH CODE 
-                */
-                if(contrasena.equals(usuario.getContrasena())){
-                    return ResponseEntity.ok("Acceso concedido");
-                }else{
-                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
-                }
+        if(u == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
+        }else{
+            if(usuarioService.validarContrasena(correo, contrasena)){
+                return ResponseEntity.ok("Acceso concedido");
+            }else{
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
             }
-        }
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
-        
+        }    
     }
 
 
@@ -61,22 +55,17 @@ public class UsuarioController {
         String correo = user.getCorreo();
         String contrasena = user.getContrasena();
 
-        List<Usuario> usuarios = usuarioService.getUsuarios();
+        Usuario u = usuarioService.findByCorreo(correo);
 
-        for(Usuario usuario : usuarios){
-            if(correo.equals(usuario.getCorreo())){
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario ya existente");
-            }
-        }
-
-        /* 
-            hay que agregar el has code
-        */
-        Usuario new_usuario = new Usuario();
-        new_usuario.setNombre(nombre);
-        new_usuario.setCorreo(correo);
-        new_usuario.setContrasena(contrasena);
-        new_usuario = usuarioService.registroUsuario(new_usuario);
-        return ResponseEntity.ok("Usuario creado");
+        if(u == null){
+            Usuario new_usuario = new Usuario();
+            new_usuario.setNombre(nombre);
+            new_usuario.setCorreo(correo);
+            new_usuario.setContrasena(contrasena);
+            new_usuario = usuarioService.registroUsuario(new_usuario);
+            return ResponseEntity.ok("Usuario creado");
+        }else{
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario ya existente");
+        }   
     }
 }
