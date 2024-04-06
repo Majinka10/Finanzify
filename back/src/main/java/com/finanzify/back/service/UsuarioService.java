@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.finanzify.back.model.Usuario;
@@ -14,6 +15,9 @@ public class UsuarioService {
     
     @Autowired
     private UsuarioRepository repo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<Usuario> getUsuarios(){
         return repo.findAll();
@@ -31,6 +35,10 @@ public class UsuarioService {
     }
 
     public Usuario registroUsuario(Usuario user){
+        /*encriptando contraseña */
+        String contrasena_code = passwordEncoder.encode(user.getContrasena());
+        user.setContrasena(contrasena_code);
+        
         return repo.save(user);
     }
 
