@@ -14,7 +14,7 @@ export class UsuarioService {
   url = "http://localhost:8080/usuarios";
 
   login(correo : string, contrasena :  string){
-    return this.http.post<string>(this.url+"/login", { correo, contrasena }, { responseType: 'text' as 'json' });
+    return this.http.post<string>(this.url+"/ingreso", { correo, contrasena }, { responseType: 'text' as 'json' });
   }
 
   ingreso(user : string){
@@ -28,5 +28,9 @@ export class UsuarioService {
 
   isLogueado(){
     return this.usuarioLogueado;
+  }
+
+  registro(nombre: string, correo: string, contrasena:string){
+    return this.http.post<string>(this.url+"/registro", { nombre, correo, contrasena }, { responseType: 'text' as 'json' });
   }
 }

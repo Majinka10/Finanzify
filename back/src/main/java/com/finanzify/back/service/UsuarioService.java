@@ -18,7 +18,7 @@ public class UsuarioService {
         return repo.findAll();
     }
 
-    public Usuario ingresousUsuario(Usuario user){
+    public Usuario registroUsuario(Usuario user){
         return repo.save(user);
     }
 

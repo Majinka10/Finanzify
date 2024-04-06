@@ -29,16 +29,11 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.getUsuarios());
     }
 
-    @PostMapping
-    public ResponseEntity<Usuario> ingresoUsuario(@RequestBody Usuario user){
-        return ResponseEntity.ok(usuarioService.ingresousUsuario(user));
-    }
+    @PostMapping("/ingreso")
+    public ResponseEntity<String> ingresoUsuario(@RequestBody Usuario user){
 
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUsuario(@RequestBody Map<String, String> respuesta){
-
-        String correo = respuesta.get("correo");
-        String contrasena = respuesta.get("contrasena");
+        String correo = user.getCorreo();
+        String contrasena = user.getContrasena();
 
         List<Usuario> usuarios = usuarioService.getUsuarios();
 
@@ -57,5 +52,31 @@ public class UsuarioController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no encontrado");
         
+    }
+
+
+    @PostMapping("/registro")
+    public ResponseEntity<String> registroUsuario(@RequestBody Usuario user){
+        String nombre = user.getNombre();
+        String correo = user.getCorreo();
+        String contrasena = user.getContrasena();
+
+        List<Usuario> usuarios = usuarioService.getUsuarios();
+
+        for(Usuario usuario : usuarios){
+            if(correo.equals(usuario.getCorreo())){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario ya existente");
+            }
+        }
+
+        /* 
+            hay que agregar el has code
+        */
+        Usuario new_usuario = new Usuario();
+        new_usuario.setNombre(nombre);
+        new_usuario.setCorreo(correo);
+        new_usuario.setContrasena(contrasena);
+        new_usuario = usuarioService.registroUsuario(new_usuario);
+        return ResponseEntity.ok("Usuario creado");
     }
 }
