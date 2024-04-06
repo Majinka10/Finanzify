@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { IngresoComponent } from './ingreso/ingreso.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { UsuarioService } from './services/usuarios/usuario.service';
+import { RouterOutlet } from '@angular/router';
+
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    imports: [CommonModule, IngresoComponent, PrincipalComponent]
+    imports: [CommonModule, IngresoComponent, PrincipalComponent, RouterOutlet]
 })
 export class AppComponent {
   title = 'Ingreso';
