@@ -4,6 +4,7 @@ import { IngresoComponent } from './ingreso/ingreso.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { UsuarioService } from './services/usuarios/usuario.service';
 import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from './layout/footer/footer.component';
 
 
 @Component({
@@ -11,7 +12,12 @@ import { RouterOutlet } from '@angular/router';
     standalone: true,
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    imports: [CommonModule, IngresoComponent, PrincipalComponent, RouterOutlet]
+    imports: [
+       CommonModule,
+       IngresoComponent,
+       PrincipalComponent, 
+       RouterOutlet,
+       FooterComponent]
 })
 export class AppComponent {
   title = 'Ingreso';
