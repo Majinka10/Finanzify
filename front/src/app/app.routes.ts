@@ -1,4 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
+
 import { IngresoComponent } from './ingreso/ingreso.component';
 import { RegistroComponent } from './registro/registro.component';
 import { PrincipalComponent } from './principal/principal.component';
