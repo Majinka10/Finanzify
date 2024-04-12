@@ -18,7 +18,7 @@ import {
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule, IngresoComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
