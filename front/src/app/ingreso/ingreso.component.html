@@ -1,5 +1,5 @@
 <div id="janelaModal" class="modal" data-bs-theme="dark">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="text-center modal-title">Iniciar sesión</h2>
@@ -13,55 +13,35 @@
             <div class="modal-body">
                 <div class="container d-flex justify-content-center align-items-center">
                     <div class="main">
-                        <form class="form" [formGroup]="formulario_login" (ngSubmit)="login($event)">
-                            <div class="form-group mb-3">
-                                <label class="mb-1" for="email">Correo electrónico:</label>
+                        <form class="row g-3 needs-validation" novalidate (ngSubmit)="login($event)">
+                            <div class="mb-3">
+                                <label for="validationCustom01" class="form-label">Correo electrónico:</label>
                                 <input 
-                                    [ngClass]="
-                                    formulario_login.get('email')?.status === 'INVALID'
-                                    ? addClassValidate('email')
-                                    : 'is-valid'
-                                    "
-                                    type="email"
-                                    class="form-control"
-                                    placeholder="Escriba su email"
-                                    formControlName="email"
+                                    type="text" 
+                                    class="form-control" 
+                                    id="validationCustom01" 
+                                    placeholder="example@example.com"
                                     required
                                 />
-                                <div
-                                    *ngIf="
-                                    formulario_login.controls.email.dirty || formulario_login.controls.email.touched
-                                    "
-                                    class="invalid-feedback">
+                                <div class="invalid-feedback">
                                     Verifique el correo electrónico ingresado.
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="mb-1" for="password">Contraseña:</label>
+                            <div>
+                                <label for="validationCustom02" class="form-label">Contraseña:</label>
                                 <input
-                                    [ngClass]="
-                                    formulario_login.get('password')?.status === 'INVALID'
-                                    ? addClassValidate('password')
-                                    : 'is-valid'
-                                    "
-                                    type="password"
-                                    class="form-control"
+                                    type="text" 
+                                    class="form-control" 
+                                    id="validationCustom02" 
                                     placeholder="Escriba su contraseña"
-                                    formControlName="password"
-                                    required 
+                                    required
                                 />
-                                <div
-                                    *ngIf="
-                                    formulario_login.controls.password.dirty ||
-                                    formulario_login.controls.password.touched
-                                    "
-                                    class="invalid-feedback">
+                                <div class="invalid-feedback">
                                     La contraseña es obligatoria. Debe tener un mínimo de 8 y un máximo de 20 caracteres.              
-                            </div>
+                                </div>
                             </div>
                             <div id="cBoton" class="d-flex">
                                 <button 
-                                    [disabled]="!formulario_login.valid"
                                     id="myboton_login" 
                                     type="submit" 
                                     class="btn btn-primary">
