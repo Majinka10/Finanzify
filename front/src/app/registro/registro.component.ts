@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
+
 import { UsuarioService } from '../services/usuarios/usuario.service';
+
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+
+
+import { IngresoComponent } from '../ingreso/ingreso.component';
 import {
   FormControl,
   FormGroup,

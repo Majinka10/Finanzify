@@ -1,38 +1,10 @@
-:host {
-    width: 100vw;
-    height: 100vh;
-    background: rgb(0,0,0);
-    background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,56,168,1) 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.card {
+.modal-content {
     width: 500px;
     box-shadow: 0 0 20px rgba(0, 0, 255, 0.5), 0 0 50px rgba(0, 0, 255, 0.5), 0 0 100px rgba(0, 0, 255, 0.5), 0 0 200px rgba(0, 0, 255, 0.5), 0 0 300px rgba(0, 0, 255, 0.5), 0 0 400px rgba(0, 0, 255, 0.5);
     background-color: #080c26;
     color: #fff;
     padding: 40px;
     border-radius: 10px;
-}
-
-.card h2 {
-    text-align: center;
-}
-
-.card .form-group {
-    margin-bottom: 1.5rem;
-}
-
-.card .text-center i {
-    color: #007bff;
 }
 
 #cBoton {
@@ -52,11 +24,17 @@
     padding-bottom: 6px;
 }
 
-#myboton{
+#myboton_login{
     height: 100%;
     box-shadow: 0 0 10px 5px rgba(0, 0, 255, 0.5);
     padding-top: 6px;
     padding-bottom: 6px;
 }
-
+  
+  @media (max-width: 460px) {
+    #janelaModal {
+      margin: auto 0;
+      margin-top: 40%;
+    }
+  }
 

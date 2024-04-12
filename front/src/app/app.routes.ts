@@ -13,5 +13,10 @@ export const routes: Routes = [
         path: '',
         component: HomeComponent,
         title: 'Finanzify'
-      }
+    },
+    {
+      path: '**',
+      component: HomeComponent,
+      title: 'Finanzify'
+    }
 ];
