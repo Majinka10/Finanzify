@@ -1,10 +1,11 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UsuarioService } from '../services/usuarios/usuario.service';
 
 @Component({
   selector: 'app-ingreso',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './ingreso.component.html',
   styleUrls: ['./ingreso.component.css']
 })
