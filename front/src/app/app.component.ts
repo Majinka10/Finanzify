@@ -1,9 +1,7 @@
 import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { IngresoComponent } from './ingreso/ingreso.component';
-// import { PrincipalComponent } from './principal/principal.component';
 import { UsuarioService } from './services/usuarios/usuario.service';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 
@@ -17,12 +15,10 @@ import { HeaderComponent } from './layout/header/header.component';
        CommonModule, 
        RouterOutlet,
        FooterComponent,
-       HeaderComponent]
+       HeaderComponent,
+       RouterLink]
 })
 export class AppComponent {
-  title = 'Ingreso';
-
   constructor(public usuarioService : UsuarioService){}
-
 }
 

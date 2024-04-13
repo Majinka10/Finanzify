@@ -1,89 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-
-
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
-
-import { UsuarioService } from '../services/usuarios/usuario.service'
+import { UsuarioService } from '../services/usuarios/usuario.service';
 
 @Component({
   selector: 'app-ingreso',
   standalone: true,
-  imports: [FormsModule, RouterLink, CommonModule, ReactiveFormsModule],
+  imports: [RouterLink],
   templateUrl: './ingreso.component.html',
-  styleUrl: './ingreso.component.css'
+  styleUrls: ['./ingreso.component.css']
 })
-export class IngresoComponent{
-  formulario_login = new FormGroup({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email,
-      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,63}$')
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.maxLength(20)    ])
-  });
-
+export class IngresoComponent implements OnInit, AfterViewInit {
   constructor(
-    private usuarioService : UsuarioService,
-    private router: Router
-  ){}
+    private usuarioService: UsuarioService,
+    private router: Router,
+    private el: ElementRef
+  ) {}
 
-  ngOnInit(): void {
-    this.addClassValidate;
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.initializeFormValidation();
   }
 
   correo: string = '';
   contrasena: string = '';
   public mensage: string = '';
-  public mostrar_mensaje : boolean = false;
-  
+  public mostrar_mensaje: boolean = false;
 
   login(e: Event) {
-    if (this.formulario_login.valid){
-      e.preventDefault();
-      this.usuarioService.login(this.correo, this.contrasena)
-      .subscribe(
-        response => {
-          this.contrasena = ""
-          this.mensage = "";
-          this.mostrar_mensaje = false;
-          this.usuarioService.ingreso(this.correo)
-          this.router.navigate(['/principal']);
-  
-          this.correo = "";
-          this.formulario_login.reset();
-        },
-        error => {
-          this.mostrar_mensaje = true;
-          if (error.status === 401 || error.status == 404) {
-            this.mensage = error.error;
-          } else {
-            this.mensage = 'Error inesperado';
-          }
+    e.preventDefault();
+    this.usuarioService.login(this.correo, this.contrasena).subscribe(
+      response => {
+        this.contrasena = "";
+        this.mensage = "";
+        this.mostrar_mensaje = false;
+        this.usuarioService.ingreso(this.correo);
+        this.router.navigate(['/principal']);
+        this.correo = "";
+      },
+      error => {
+        this.mostrar_mensaje = true;
+        if (error.status === 401 || error.status == 404) {
+          this.mensage = error.error;
+        } else {
+          this.mensage = 'Error inesperado';
         }
-      );
-    }
-  }
-
-  checkValidTouched(campo: string) {
-    return (
-      !this.formulario_login.get(campo)?.valid && this.formulario_login.get(campo)?.touched
+      }
     );
   }
 
-  addClassValidate(campo: string) {
-    return {
-      'is-invalid': this.checkValidTouched(campo),
-    };
+  private initializeFormValidation(): void {
+    const forms = this.el.nativeElement.querySelectorAll('.needs-validation');
+
+    Array.prototype.forEach.call(forms, (form: HTMLFormElement) => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
   }
 }
