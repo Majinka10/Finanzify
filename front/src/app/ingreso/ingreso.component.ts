@@ -1,30 +1,57 @@
-import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UsuarioService } from '../services/usuarios/usuario.service';
+import { CommonModule } from '@angular/common';
+import {NgbModal, ModalDismissReasons, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-ingreso',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './ingreso.component.html',
   styleUrls: ['./ingreso.component.css']
 })
-export class IngresoComponent implements OnInit, AfterViewInit {
+export class IngresoComponent {
+  // @ViewChild('modal') modal?: ElementRef;
+
+  // openModal(){
+  //   $(this.modal?.nativeElement).modal('show');
+  // }
+
+  // closeModal(){
+  //   $(this.modal?.nativeElement).modal('hide');
+  // }
+
+  closeResult: string = '';
+  
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
-    private el: ElementRef
-  ) {}
-
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    this.initializeFormValidation();
+    private modalService: NgbModal
+    ) {}
+    
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 
   correo: string = '';
   contrasena: string = '';
-  public mensage: string = '';
+  public mensaje: string = '';
   public mostrar_mensaje: boolean = false;
 
   login(e: Event) {
@@ -32,7 +59,7 @@ export class IngresoComponent implements OnInit, AfterViewInit {
     this.usuarioService.login(this.correo, this.contrasena).subscribe(
       response => {
         this.contrasena = "";
-        this.mensage = "";
+        this.mensaje = "";
         this.mostrar_mensaje = false;
         this.usuarioService.ingreso(this.correo);
         this.router.navigate(['/principal']);
@@ -41,25 +68,11 @@ export class IngresoComponent implements OnInit, AfterViewInit {
       error => {
         this.mostrar_mensaje = true;
         if (error.status === 401 || error.status == 404) {
-          this.mensage = error.error;
+          this.mensaje = error.error;
         } else {
-          this.mensage = 'Error inesperado';
+          this.mensaje = 'Error inesperado';
         }
       }
     );
-  }
-
-  private initializeFormValidation(): void {
-    const forms = this.el.nativeElement.querySelectorAll('.needs-validation');
-
-    Array.prototype.forEach.call(forms, (form: HTMLFormElement) => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-        }
-        form.classList.add('was-validated');
-      }, false);
-    });
   }
 }

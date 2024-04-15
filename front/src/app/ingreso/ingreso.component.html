@@ -1,23 +1,23 @@
-<div id="janelaModal" class="modal">
+<!-- <div #modal id="loginModal" class="modal fade" aria-labelledby="loginModalLabel" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="text-center modal-title">Iniciar sesión</h2>
                 <button
-                type="button"
-                class="btn-close"
-                aria-label="Close"
-                data-bs-dismiss="modal"
+                    type="button"
+                    class="btn-close"
+                    aria-label="Close"
+                    data-bs-dismiss="modal"
                 ></button>
             </div>
             <div class="modal-body">
                 <div class="container d-flex justify-content-center align-items-center">
                     <div class="main">
-                        <form class="row g-3 needs-validation" novalidate (ngSubmit)="login($event)">
+                        <form class="row g-3 needs-validation" (ngSubmit)="login($event)">
                             <div class="mb-3">
                                 <label for="validationCustom01" class="form-label">Correo electrónico:</label>
                                 <input 
-                                    type="text" 
+                                    type="email" 
                                     class="form-control" 
                                     id="validationCustom01" 
                                     placeholder="example@example.com"
@@ -30,7 +30,7 @@
                             <div>
                                 <label for="validationCustom02" class="form-label">Contraseña:</label>
                                 <input
-                                    type="text" 
+                                    type="password" 
                                     class="form-control" 
                                     id="validationCustom02" 
                                     placeholder="Escriba su contraseña"
@@ -49,11 +49,11 @@
                                     </button>
                                 @if (mostrar_mensaje) {
                                     <div id="advertencia" class="alert alert-danger flex-grow-1" role="alert">
-                                        {{mensage}}
+                                        {{mensaje}}
                                     </div>
                                 }
                             </div>
-                            <a routerLink="">
+                            <a routerLink="/home">
                                 <button
                                     type="button"
                                     class="btn">
@@ -66,5 +66,25 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn btn-sm" (click)="openModal()">
+    ¿Ya tienes una cuenta? Ingresa aquí
+</button> -->
 
+<button class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">Open My Modal</button>
+   
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is example from ItSolutionStuff.com
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>

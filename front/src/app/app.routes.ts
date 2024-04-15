@@ -10,7 +10,7 @@ export const routes: Routes = [
     { path: 'ingreso', component: IngresoComponent },
     { path: 'principal', component: PrincipalComponent , canActivate: [loginGuard]},
     {
-        path: '',
+        path: 'home',
         component: HomeComponent,
         title: 'Finanzify'
     },

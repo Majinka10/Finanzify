@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { UsuarioService } from '../services/usuarios/usuario.service';
 
@@ -22,6 +22,12 @@ import {
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
+  // @ViewChild(IngresoComponent) modal?: IngresoComponent;
+
+  // openModal(){
+  //   this.modal?.openModal();
+  // }
+
   formulario = new FormGroup({
     nombre: new FormControl('', [
       Validators.required,
@@ -50,6 +56,18 @@ export class RegistroComponent {
 
   ngOnInit(): void {
     this.addClassValidate;
+  }
+  
+  checkValidTouched(campo: string) {
+    return (
+      !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched
+    );
+  }
+
+  addClassValidate(campo: string) {
+    return {
+      'is-invalid': this.checkValidTouched(campo),
+    };
   }
 
   nombre: string = '';
@@ -95,15 +113,4 @@ export class RegistroComponent {
     }
   }
 
-  checkValidTouched(campo: string) {
-    return (
-      !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched
-    );
-  }
-
-  addClassValidate(campo: string) {
-    return {
-      'is-invalid': this.checkValidTouched(campo),
-    };
-  }
 }

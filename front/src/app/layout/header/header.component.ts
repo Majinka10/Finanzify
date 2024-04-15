@@ -12,15 +12,8 @@ import { IngresoComponent } from '../../ingreso/ingreso.component';
   imports: [IngresoComponent, RouterLink],
 })
 export class HeaderComponent implements OnInit {
-  btnlogin: string = 'login';
-  btnlogout: string = 'logout';
-
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
-  onlogout(): void {
-    console.log('logout');
-    this.router.navigate(['/']);
-  }
 }
