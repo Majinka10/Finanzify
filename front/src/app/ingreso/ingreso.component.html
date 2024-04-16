@@ -72,19 +72,68 @@
     ¿Ya tienes una cuenta? Ingresa aquí
 </button> -->
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">Open My Modal</button>
+<button class="btn btn-outline-primary me-2" (click)="open(mymodal)">Login</button>
    
-<ng-template #mymodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    This is example from ItSolutionStuff.com
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-  </div>
-</ng-template>
+<ng-template #mymodal let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header" data-bs-theme="dark">
+        <h2 class="text-center modal-title">Iniciar sesión</h2>
+        <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="d('Save click')"
+        ></button>
+    </div>
+    <div class="modal-body" data-bs-theme="dark">
+        <div class="container d-flex justify-content-center align-items-center">
+            <form class="row g-3 needs-validation" novalidate (ngSubmit)="login($event)">
+                <div class="mb-3">
+                    <label for="validationCustom01" class="form-label">Correo electrónico:</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="validationCustom01" 
+                        placeholder="example@example.com"
+                        required
+                    />
+                    <div class="invalid-feedback">
+                        Verifique el correo electrónico ingresado.
+                    </div>
+                </div>
+                <div>
+                    <label for="validationCustom02" class="form-label">Contraseña:</label>
+                    <input
+                        type="password" 
+                        class="form-control" 
+                        id="validationCustom02" 
+                        placeholder="Escriba su contraseña"
+                        required
+                    />
+                    <div class="invalid-feedback">
+                        La contraseña es obligatoria. Debe tener un mínimo de 8 y un máximo de 20 caracteres.              
+                    </div>
+                </div>
+                <div id="cBoton" class="d-flex">
+                    <button 
+                        id="myboton_login" 
+                        type="submit" 
+                        class="btn btn-primary">
+                        Iniciar sesión
+                        </button>
+                    @if (mostrar_mensaje) {
+                        <div id="advertencia" class="alert alert-danger flex-grow-1" role="alert">
+                            {{mensaje}}
+                        </div>
+                    }
+                </div>
+                <a routerLink="/home">
+                    <button
+                        type="button"
+                        class="btn">
+                        ¿No tienes una cuenta? Regístrate aquí
+                    </button>
+                </a>
+            </form>
+        </div>
+    </div>
+    </ng-template>

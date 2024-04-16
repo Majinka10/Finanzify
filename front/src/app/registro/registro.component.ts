@@ -22,11 +22,11 @@ import {
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
-  // @ViewChild(IngresoComponent) modal?: IngresoComponent;
+  @ViewChild(IngresoComponent) modal?: IngresoComponent;
 
-  // openModal(){
-  //   this.modal?.openModal();
-  // }
+  open(content: any) {
+    this.modal?.open(content);
+  }
 
   formulario = new FormGroup({
     nombre: new FormControl('', [
@@ -106,6 +106,9 @@ export class RegistroComponent {
               this.mensage = error.error;
             } else {
               this.mensage = 'Error inesperado';
+              setTimeout(()=>{
+                this.mostrar_mensaje = false;
+              }, 5000)
             }
           }
         );
