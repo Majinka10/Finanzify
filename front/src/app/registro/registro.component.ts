@@ -1,11 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { UsuarioService } from '../services/usuarios/usuario.service';
-
 import { CommonModule } from '@angular/common';
 
-
-import { IngresoComponent } from '../ingreso/ingreso.component';
 import {
   FormControl,
   FormGroup,
@@ -17,17 +13,11 @@ import {
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IngresoComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
 export class RegistroComponent {
-  @ViewChild(IngresoComponent) modal?: IngresoComponent;
-
-  open(content: any) {
-    this.modal?.open(content);
-  }
-
   formulario = new FormGroup({
     nombre: new FormControl('', [
       Validators.required,

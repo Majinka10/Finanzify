@@ -1,35 +1,61 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UsuarioService } from '../services/usuarios/usuario.service';
 import { CommonModule } from '@angular/common';
 import {NgbModal, ModalDismissReasons, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-ingreso',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './ingreso.component.html',
   styleUrls: ['./ingreso.component.css']
 })
 export class IngresoComponent {
-  // @ViewChild('modal') modal?: ElementRef;
-
-  // openModal(){
-  //   $(this.modal?.nativeElement).modal('show');
-  // }
-
-  // closeModal(){
-  //   $(this.modal?.nativeElement).modal('hide');
-  // }
-
   closeResult: string = '';
+
+  // Declaración de los campos que deben ser validados en el formulario
+  formulario = new FormGroup({
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,63}$')
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(20)])
+  });
   
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
     private modalService: NgbModal
     ) {}
+
+  ngOnInit(): void {
+    this.addClassValidate;
+  }
+  
+  checkValidTouched(campo: string) {
+    return (
+      !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched
+    );
+  }
+
+  addClassValidate(campo: string) {
+    return {
+      'is-invalid': this.checkValidTouched(campo),
+    };
+  }
     
   open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', windowClass: 'dark-modal', centered: true}).result.then((result) => {

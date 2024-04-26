@@ -10,11 +10,6 @@ export const routes: Routes = [
     { path: 'ingreso', component: IngresoComponent },
     { path: 'principal', component: PrincipalComponent , canActivate: [loginGuard]},
     {
-        path: 'home',
-        component: HomeComponent,
-        title: 'Finanzify'
-    },
-    {
       path: '**',
       component: HomeComponent,
       title: 'Finanzify'
