@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
-
 import { UsuarioService } from '../services/usuarios/usuario.service';
-
 import { CommonModule } from '@angular/common';
 
-
-import { IngresoComponent } from '../ingreso/ingreso.component';
 import {
   FormControl,
   FormGroup,
@@ -17,7 +13,7 @@ import {
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IngresoComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
@@ -50,6 +46,18 @@ export class RegistroComponent {
 
   ngOnInit(): void {
     this.addClassValidate;
+  }
+  
+  checkValidTouched(campo: string) {
+    return (
+      !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched
+    );
+  }
+
+  addClassValidate(campo: string) {
+    return {
+      'is-invalid': this.checkValidTouched(campo),
+    };
   }
 
   nombre: string = '';
@@ -88,6 +96,9 @@ export class RegistroComponent {
               this.mensage = error.error;
             } else {
               this.mensage = 'Error inesperado';
+              setTimeout(()=>{
+                this.mostrar_mensaje = false;
+              }, 5000)
             }
           }
         );
@@ -95,15 +106,4 @@ export class RegistroComponent {
     }
   }
 
-  checkValidTouched(campo: string) {
-    return (
-      !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched
-    );
-  }
-
-  addClassValidate(campo: string) {
-    return {
-      'is-invalid': this.checkValidTouched(campo),
-    };
-  }
 }
