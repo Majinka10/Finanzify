@@ -1,16 +1,23 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
-import { IngresoComponent } from './ingreso/ingreso.component';
-import { PrincipalComponent } from './principal/principal.component';
 import { loginGuard } from './login.guard';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/home.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { IngresoComponent } from './components/ingreso/ingreso.component';
 
 
 export const routes: Routes = [
-    { path: 'ingreso', component: IngresoComponent },
-    { path: 'principal', component: PrincipalComponent , canActivate: [loginGuard]},
+    { path: 'dashboard', component: DashboardComponent},
+    // { path: 'about', component: DashboardComponent},
+    // { path: 'faqs', component: IngresoComponent},
+    // { path: 'dashboard', component: DashboardComponent , canActivate: [loginGuard]},
     {
       path: '**',
+      component: HomeComponent,
+      title: 'Finanzify'
+    },
+    {
+      path: '',
       component: HomeComponent,
       title: 'Finanzify'
     }

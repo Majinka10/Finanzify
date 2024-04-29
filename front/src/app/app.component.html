@@ -1,5 +1,12 @@
-<app-header></app-header>
-<div class="container" data-bs-theme="dark">
-    <router-outlet></router-outlet>
+<app-header *ngIf="isValid()"></app-header>
+<div class="container-fluid p-0" *ngIf="isValid()">
+        <router-outlet></router-outlet>
 </div>
-<app-footer></app-footer>
+<app-footer *ngIf="isValid()"/>
+
+<div class="grid-container" *ngIf="!isValid()">
+        <app-sidebar/>
+        <main >
+                <router-outlet/>
+        </main>
+</div>

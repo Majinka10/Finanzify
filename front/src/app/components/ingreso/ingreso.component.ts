@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { UsuarioService } from '../services/usuarios/usuario.service';
 import { CommonModule } from '@angular/common';
 import {NgbModal, ModalDismissReasons, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,6 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { UsuarioService } from '../../services/usuarios/usuario.service';
 
 @Component({
   selector: 'app-ingreso',
@@ -88,7 +88,7 @@ export class IngresoComponent {
         this.mensaje = "";
         this.mostrar_mensaje = false;
         this.usuarioService.ingreso(this.correo);
-        this.router.navigate(['/principal']);
+        this.router.navigate(['/dashboard']);
         this.correo = "";
       },
       error => {
