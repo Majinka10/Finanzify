@@ -60,10 +60,6 @@ export class RegistroComponent {
     };
   }
 
-  nombre: string = '';
-  correo: string = '';
-  contrasena: string = '';
-  confirm_contrasena:string = '';
   public mensage: string = '';
   public mostrar_mensaje : boolean = false;
   claseAlert: string = 'alert alert-danger flex-grow-1';
@@ -71,21 +67,21 @@ export class RegistroComponent {
 
   registro(e: Event) {
     if (this.formulario.valid){
+      const nombre: string = this.formulario.get('nombre')?.value?.toString() || '';
+      const correo: string = this.formulario.get('email')?.value?.toString() || '';
+      const contrasena: string = this.formulario.get('password')?.value?.toString() || '';
+      const confirm_contrasena: string = this.formulario.get('confirm_password')?.value?.toString() || '';
       e.preventDefault();
-      if(this.confirm_contrasena != this.contrasena){
+      if(confirm_contrasena != contrasena){
         this.claseAlert = 'alert alert-danger flex-grow-1';
         this.mostrar_mensaje = true;
         this.mensage = "Las contraseñas no coinciden"
       }else{
-        this.usuarioService.registro(this.nombre, this.correo, this.contrasena)
+        this.usuarioService.registro(nombre, correo, contrasena)
         .subscribe(
           response => {
             this.claseAlert = 'alert alert-success flex-grow-1';
             this.mostrar_mensaje = true;
-            this.nombre = '';
-            this.correo = ''
-            this.contrasena = '';
-            this.confirm_contrasena = '';
             this.mensage = 'Usuario creado con éxito';
             this.formulario.reset();
           },

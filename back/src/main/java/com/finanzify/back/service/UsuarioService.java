@@ -43,8 +43,9 @@ public class UsuarioService {
     }
 
     public Usuario findByCorreo(String correo){
-        Optional<Usuario> optionalUsuario = repo.findById(correo);
-        return optionalUsuario.orElse(null);
+        //Optional<Usuario> optionalUsuario = repo.findById(correo);
+        //return optionalUsuario.orElse(null);
+        return repo.findByCorreo(correo);
     }
 
 }
