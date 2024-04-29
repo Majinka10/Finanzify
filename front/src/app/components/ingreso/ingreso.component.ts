@@ -75,21 +75,21 @@ export class IngresoComponent {
     }
   }
 
-  correo: string = '';
-  contrasena: string = '';
+
   public mensaje: string = '';
   public mostrar_mensaje: boolean = false;
 
   login(e: Event) {
     e.preventDefault();
-    this.usuarioService.login(this.correo, this.contrasena).subscribe(
+    const correo: string = this.formulario.get('email')?.value?.toString() || '';
+    const contrasena: string = this.formulario.get('password')?.value?.toString() || '';
+    this.usuarioService.login(correo, contrasena).subscribe(
       response => {
-        this.contrasena = "";
         this.mensaje = "";
         this.mostrar_mensaje = false;
-        this.usuarioService.ingreso(this.correo);
+        this.usuarioService.ingreso(correo);
+        this.modalService.dismissAll(); // Cerrar modal - cierr la ventana de login antes de redirigir
         this.router.navigate(['/dashboard']);
-        this.correo = "";
       },
       error => {
         this.mostrar_mensaje = true;

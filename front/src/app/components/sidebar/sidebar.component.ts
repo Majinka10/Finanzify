@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { UsuarioService } from '../../services/usuarios/usuario.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,4 +16,14 @@ export class SidebarComponent {
     {icon: 'bi-bar-chart', title: 'Inversiones', link: '/inversiones'},
     {icon: 'bi-pie-chart', title: 'Analítica', link: '/analitica'},
   ];
+
+  constructor(
+    public usuarioService : UsuarioService,
+    private router: Router
+    ){}
+
+  logout(){
+    this.usuarioService.logout();
+    this.router.navigate(['/'])
+  }
 }

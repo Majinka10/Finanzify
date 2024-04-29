@@ -1,6 +1,7 @@
 <div class="m-0 p-0 bg-light d-flex">
     <div class="col-md-10 p-3">
-        <h1>Hola, Username <i class="bi bi-suit-heart-fill"></i></h1>
+        <h1>Hola, <span *ngIf="usuario?.nombre">{{ usuario.nombre }}</span> <i class="bi bi-suit-heart-fill"></i></h1>
+        <!-- el span es para que no arroje error y solo carge el nombre cuando la base de datos haya respondido -->
         <span class="fs-5">Revisemos tus estadísticas financieras</span>
         <br>
         <span class="text-secondary-emphasis">Viernes, 27 de Abril</span>
