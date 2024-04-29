@@ -20,6 +20,8 @@ public class tipo_ingreso {
     @OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL)
     private List<Ingreso> ingresos;
 
+    private String icono;
+
     public tipo_ingreso() {
     }
 
@@ -45,5 +47,13 @@ public class tipo_ingreso {
 
     public void setIngresos(List<Ingreso> ingresos) {
         this.ingresos = ingresos;
+    }
+
+    public String getIcono() {
+        return icono;
+    }
+
+    public void setIcono(String icono) {
+        this.icono = icono;
     }
 }

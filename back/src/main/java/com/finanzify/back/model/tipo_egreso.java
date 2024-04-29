@@ -21,6 +21,8 @@ public class tipo_egreso {
     @OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL)
     private List<Egreso> egresos;
 
+    private String icono;
+
     public tipo_egreso() {
     }
 
@@ -48,5 +50,11 @@ public class tipo_egreso {
         this.egresos = egresos;
     }
 
-    
+    public String getIcono() {
+        return icono;
+    }
+
+    public void setIcono(String icono) {
+        this.icono = icono;
+    }
 }
