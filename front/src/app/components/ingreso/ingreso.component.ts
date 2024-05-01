@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {NgbModal, ModalDismissReasons, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import {
   FormControl,

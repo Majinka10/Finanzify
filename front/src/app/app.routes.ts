@@ -3,13 +3,14 @@ import { Routes } from '@angular/router';
 import { loginGuard } from './login.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { IngresoComponent } from './components/ingreso/ingreso.component';
-
 
 export const routes: Routes = [
     { path: 'dashboard', component: DashboardComponent},
     // { path: 'about', component: DashboardComponent},
-    // { path: 'faqs', component: IngresoComponent},
+    // { path: 'faqs', component: DashboardComponent},
+    { path: 'presupuesto', component: DashboardComponent},
+    { path: 'inversiones', component: DashboardComponent},
+    { path: 'analitica', component: DashboardComponent},
     // { path: 'dashboard', component: DashboardComponent , canActivate: [loginGuard]},
     {
       path: '**',

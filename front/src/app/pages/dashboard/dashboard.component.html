@@ -1,11 +1,18 @@
-<div class="m-0 p-0 bg-light d-flex">
+<div class="m-0 p-0 bg-light d-flex" *ngIf="usuarioCargado">
+<!-- <div class="m-0 p-0 bg-light d-flex"> -->
     <div class="col-md-10 p-3">
-        <h1>Hola, <span *ngIf="usuario?.nombre">{{ usuario.nombre }}</span> <i class="bi bi-suit-heart-fill"></i></h1>
-        <!-- el span es para que no arroje error y solo carge el nombre cuando la base de datos haya respondido -->
-        <span class="fs-5">Revisemos tus estadísticas financieras</span>
-        <br>
-        <span class="text-secondary-emphasis">Viernes, 27 de Abril</span>
-        <div class="container overflow-hidden pt-5 px-0 text-left">
+        <div class="row">
+            <div class="col-sm-4">
+                <app-header-interno/>
+            </div>
+            <div class="col-sm-4">
+                <app-registrar-ingreso />
+            </div>
+            <div class="col-sm-4">
+                <app-registrar-gasto />
+            </div>
+        </div>
+        <div class="container overflow-hidden pt-4 px-0 text-left">
             <div class="row"> 
                 <div class="col-sm-4">
                     <div class="card p-3">
@@ -35,8 +42,18 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-2 w-75">
-                <app-distribucion-gastos></app-distribucion-gastos>
+            <div class="row mt-2 bg-light">
+                <div class="col p-3">
+                    <app-distribucion-gastos></app-distribucion-gastos>
+                </div>
+                <div class="col p-3 d-flex flex-column justify-content-between">
+                    <div class="">
+                        <app-balance />
+                    </div>
+                    <div class="">
+                        <app-gastos-versus-ingresos></app-gastos-versus-ingresos>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

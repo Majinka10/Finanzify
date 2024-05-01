@@ -11,24 +11,17 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class DistribucionGastosComponent{
 
-  data: ChartData<'bar'> = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  geoChartData: ChartData<'doughnut'> = {
+    labels: ['Arriendo', 'Zapatos', 'Recibo de la luz', 'Gastos médicos'],
     datasets: [
       {
-        data: this.getIngresos(), label: 'Ingresos'
-      },
-      {
-        data: this.getGastos(), label: 'Gastos'
+        data: this.getGastos()
       }
     ]
   }
-
-  getIngresos() {
-    return [35000, 22000, 18000, 28000, 1500, 4000, 5000, 8000, 3000, 32000, 20000, 28000];
-  }
   
   getGastos() {
-    return [32000, 21000, 17000, 31000, 2500, 3500, 4500, 7000, 2200, 28000, 19000, 26000];
+    return [50000, 20000, 5000, 3000];
   }
   
   private data_2 = [

@@ -5,6 +5,7 @@ import { RouterOutlet, RouterLink, Router, RouterModule } from '@angular/router'
 import { FooterComponent } from './pages/home/footer/footer.component';
 import { HeaderComponent } from './pages/home/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import SpinnerComponent from './components/spinner/spinner.component';
 
 
 @Component({
@@ -19,7 +20,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
        HeaderComponent,
        RouterLink,
        RouterModule,
-       SidebarComponent]
+       SidebarComponent,
+      SpinnerComponent]
 })
 export class AppComponent {
   constructor(public usuarioService : UsuarioService,

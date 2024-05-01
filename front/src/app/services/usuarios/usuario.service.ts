@@ -12,6 +12,7 @@ export class UsuarioService {
   usuarioLogueado = false;
   usuario_activo = '';
 
+
   url = "http://localhost:8080/usuarios";
 
   login(correo : string, contrasena :  string){
