@@ -20,17 +20,17 @@
     </div>
 </div>
 <hr>
-<h4>Movimientos Recientes</h4>
+<h4 *ngIf="usuarioCargado">Movimientos Recientes</h4>
 <div class="d-flex flex-column">
     @for (item of items_last; track items_last){
         <div class="d-flex align-items-center">
-            <i class="bi fs-3 me-3 pb-2" [class]="item.icon"></i>
+            <i class="bi fs-3 me-3 pb-2" [class]="item.tipo.icono"></i>
             <p>
-                <span class="fs-5 ">{{item.title}}</span>
+                <span class="fs-5 ">{{item.tipo.nombre}}</span>
                 <br>
                 <span>{{item.fecha}}</span>
             </p>
-            <span class="ms-auto p-2" [style]="{ color: item.tipo === 'Ingreso' ? 'green' : 'red' }">${{item.cantidad}}</span>
+            <span class="ms-auto p-2" [style]="{ color: item.subtipo === 'ingreso' ? 'green' : 'red' }">${{item.cantidad}}</span>
         </div>
     }
 </div>
