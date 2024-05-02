@@ -123,7 +123,9 @@ export class RegistrarGastoComponent implements OnInit{
         };
 
         this.egresoService.registroEgreso(egreso).subscribe(response => {
+          this.usuarioService.update(); // Actualizar informacion del usuario
           this.modalService.dismissAll();
+
           },
           error => {
             console.error('Error al registrar el egreso:', error);

@@ -123,6 +123,7 @@ export class RegistrarIngresoComponent implements OnInit{
         };
 
         this.ingresoService.registroIngreso(ingreso).subscribe(response => {
+          this.usuarioService.update(); // Actualizar la información del usuario
           this.modalService.dismissAll();
           },
           error => {

@@ -1,10 +1,18 @@
 import {HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+
+  private updateFuncion = new Subject<void>();
+  updateFuncion$ = this.updateFuncion.asObservable();
+
+  update(){
+    this.updateFuncion.next();
+  }
 
   constructor(private http: HttpClient) { }
 

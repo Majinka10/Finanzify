@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/usuarios/usuario.service';
 import { CommonModule } from '@angular/common';
 import { MovimientoService } from '../../services/movimientos/movimiento.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,12 +12,18 @@ import { MovimientoService } from '../../services/movimientos/movimiento.service
   templateUrl: './movimientos-recientes.component.html',
   styleUrl: './movimientos-recientes.component.css'
 })
-export class MovimientosRecientesComponent implements OnInit{
+export class MovimientosRecientesComponent implements OnInit, OnDestroy{
+
+  private subscription: Subscription;
 
   constructor(
     public usuarioService : UsuarioService,
     public movimientoService : MovimientoService
-  ){}
+  ){
+    this.subscription = this.usuarioService.updateFuncion$.subscribe(() => {
+      this.actualizarMovimientos();
+    });
+  }
 
   // items_last: {icon: string; title: string; fecha: string; cantidad: number; tipo: string}[] = [
   //   {icon: "bi-house-check", title: "Arriendo", fecha: "Marzo 22, 2024", cantidad: 50000, tipo: "Gasto"},
@@ -61,4 +68,19 @@ export class MovimientosRecientesComponent implements OnInit{
       );
     }
   }
+
+  actualizarMovimientos(){
+    this.movimientoService.getMovimientosRecientes(this.usuario).subscribe(
+      movimientos => {
+        this.items_last = movimientos;
+      },
+      error => {
+        console.error('Error al obtener los movimientos:', error);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
 }
