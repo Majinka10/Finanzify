@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from '../../../services/usuarios/usuario.service';
 import { CommonModule } from '@angular/common';
+import { IngresoService } from '../../../services/ingreso/ingreso.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './registrar-ingreso.component.html',
   styleUrls: ['./registrar-ingreso.component.css']
 })
-export class RegistrarIngresoComponent {
+export class RegistrarIngresoComponent implements OnInit{
   closeResult: string = '';
 
   formulario = new FormGroup({
@@ -23,24 +24,39 @@ export class RegistrarIngresoComponent {
     tipo: new FormControl('', Validators.required)
   });
 
-  tiposIngreso = [
-    { nombre: 'Salario', icono: 'bi-currency-dollar' },
-    { nombre: 'Honorarios', icono: 'bi-pen' },
-    { nombre: 'Ventas de productos', icono: 'bi-cart' },
-    { nombre: 'Alquileres', icono: 'bi-house-check' },
-    { nombre: 'Intereses bancarios', icono: 'bi-bank' },
-    { nombre: 'Inversiones', icono: 'bi-bar-chart-line' },
-    { nombre: 'Bonificaciones', icono: 'bi-gift' },
-    { nombre: 'Comisiones', icono: 'bi-cash-stack' },
-    { nombre: 'Subsidio', icono: 'bi-award' },
-    { nombre: 'Regalías', icono: 'bi-gem' }
-  ];
+  // tiposIngreso = [
+  //   { nombre: 'Salario', icono: 'bi-currency-dollar' },
+  //   { nombre: 'Honorarios', icono: 'bi-pen' },
+  //   { nombre: 'Ventas de productos', icono: 'bi-cart' },
+  //   { nombre: 'Alquileres', icono: 'bi-house-check' },
+  //   { nombre: 'Intereses bancarios', icono: 'bi-bank' },
+  //   { nombre: 'Inversiones', icono: 'bi-bar-chart-line' },
+  //   { nombre: 'Bonificaciones', icono: 'bi-gift' },
+  //   { nombre: 'Comisiones', icono: 'bi-cash-stack' },
+  //   { nombre: 'Subsidio', icono: 'bi-award' },
+  //   { nombre: 'Regalías', icono: 'bi-gem' }
+  // ];
+
+  tiposIngreso: any[] = [];
   
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
+    private ingresoService: IngresoService,
     private modalService: NgbModal
   ) {}
+
+
+  ngOnInit(): void {
+    this.ingresoService.getTiposIngreso().subscribe(
+      (tipos: any) => {
+        this.tiposIngreso = tipos;
+      },
+      (error) => {
+        console.error('Error al obtener los tipos de ingreso:', error);
+      }
+    );
+  }
 
   tipoSeleccionado: string = '';
 

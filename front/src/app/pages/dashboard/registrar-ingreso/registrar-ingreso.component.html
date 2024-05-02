@@ -57,11 +57,13 @@
                     <label for="tipo">Tipo:</label>
                     <select class="form-select" formControlName="tipo" required>
                         <option value="" disabled selected>Seleccione un tipo</option>
-                        <ng-container *ngFor="let tipo of tiposIngreso">
-                            <option [value]="tipo.nombre">
-                                {{ tipo.nombre }}
-                            </option>
-                        </ng-container>
+                            <ng-container *ngIf="tiposIngreso">
+                                <ng-container *ngFor="let tipo of tiposIngreso">
+                                    <option [value]="tipo.nombre">
+                                        {{ tipo.nombre }}
+                                    </option>
+                                </ng-container>
+                            </ng-container>
                     </select>
                 </div>
                 <!-- <div class="container text-center">
