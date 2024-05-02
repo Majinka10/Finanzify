@@ -10,6 +10,7 @@ import { HeaderInternoComponent } from '../../components/header-interno/header-i
 import { BalanceComponent } from './balance/balance.component';
 import { RegistrarIngresoComponent } from './registrar-ingreso/registrar-ingreso.component';
 import { RegistrarGastoComponent } from './registrar-gasto/registrar-gasto.component';
+import { BalanceService } from '../../services/balance/balance.service';
 
 
 @Component({
@@ -23,11 +24,18 @@ export class DashboardComponent implements OnInit{
 
   constructor(
     public usuarioService : UsuarioService,
-    private router: Router
+    private router: Router,
+    public balanceService: BalanceService
     ){}
 
   usuario: any;
   usuarioCargado: boolean = false; // Variable para controlar si el usuario ha sido cargado
+
+  balance: any = {
+    ingresos: 0,
+    egresos: 0,
+    ahorros: 0
+  };
 
   ngOnInit(){
     if(this.usuarioService.isLogueado()){
@@ -35,6 +43,17 @@ export class DashboardComponent implements OnInit{
         usuario => {
           this.usuario = usuario;
           this.usuarioCargado = true; // Indicar que el usuario ha sido cargado correctamente
+
+          // Obtener el balance del usuario
+          this.balanceService.getBalance(this.usuario).subscribe(
+            balance => {
+              this.balance = balance;
+            },
+            error => {
+              console.error('Error al obtener el balance:', error);
+            }
+          );
+
         },
         error => {
           console.error('Error al obtener el usuario:', error);

@@ -30,7 +30,7 @@
                 <br>
                 <span>{{item.fecha}}</span>
             </p>
-            <span class="ms-auto p-2" [style]="{ color: item.subtipo === 'ingreso' ? 'green' : 'red' }">${{item.cantidad}}</span>
+            <span class="ms-auto p-2" [style]="{ color: item.subtipo === 'ingreso' ? 'green' : 'red' }">${{item.cantidad.toLocaleString()}}</span>
         </div>
     }
 </div>
@@ -44,7 +44,7 @@
                 <br>
                 <span>{{item.fecha}}</span>
             </p>
-            <span class="ms-auto p-2" [style]="{ color: item.tipo === 'Ingreso' ? 'green' : 'red' }">${{item.cantidad}}</span>
+            <span class="ms-auto p-2" [style]="{ color: item.tipo === 'Ingreso' ? 'green' : 'red' }">${{item.cantidad.toLocaleString()}}</span>
         </div>
     }
 </div>
