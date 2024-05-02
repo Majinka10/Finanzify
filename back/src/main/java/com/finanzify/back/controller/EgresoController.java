@@ -24,7 +24,7 @@ public class EgresoController {
 
     @PostMapping("/findByUsuario/recent")
     public ResponseEntity<List<Egreso>> findByUsuarioRecent(@RequestBody UserDTO usuario) {
-        return ResponseEntity.ok(egresoService.getEgresosByCorreo(usuario.getCorreo()));
+        return ResponseEntity.ok(egresoService.getEgresosByCorreoRecent(usuario.getCorreo()));
     }
 
 

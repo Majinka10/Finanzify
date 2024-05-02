@@ -5,6 +5,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from '../../../services/usuarios/usuario.service';
 import { CommonModule } from '@angular/common';
 import { IngresoService } from '../../../services/ingreso/ingreso.service';
+import { response } from 'express';
+import { error } from 'console';
 
 
 @Component({
@@ -106,30 +108,29 @@ export class RegistrarIngresoComponent implements OnInit{
   public mostrar_mensaje: boolean = false;
 
   registrarIngreso() {
-    if (this.formulario.valid) {
-      const datos = {
-        cantidad: this.formulario.get('cantidad')?.value,
-        fecha: this.formulario.get('fecha')?.value,
-        descripcion: this.formulario.get('descripcion')?.value,
-        tipo: this.formulario.get('tipo')?.value,
-        icono: this.tiposIngreso.find(tipo => tipo.nombre === this.formulario.get('tipo')?.value)?.icono || ''
-      };
-  
-      const respuesta = {
-        registrarIngreso: {
-          formularioValido: true,
-          datos: datos,
-          mensaje: 'Formulario válido, enviar datos al servidor',
-          accion: 'Enviar los datos del formulario al servicio'
-        }
-      };
-  
-      console.log(datos);
-  
-      // Aquí puedes enviar los datos al backend utilizando este objeto JSON
+    if (this.formulario.valid){
 
-    // Cerrar el modal una vez que se hayan enviado los datos
-    this.modalService.dismissAll();
+      this.usuarioService.getUsuario().subscribe(usuario => {
+
+        var user: any = usuario;
+
+        var ingreso = {
+          cantidad: this.formulario.get('cantidad')?.value,
+          fecha: this.formulario.get('fecha')?.value,
+          descripcion: this.formulario.get('descripcion')?.value,
+          tipo: this.tiposIngreso.find(tipo => tipo.nombre === this.formulario.get('tipo')?.value).id,
+          usuario: user.correo
+        };
+
+        this.ingresoService.registroIngreso(ingreso).subscribe(response => {
+          this.modalService.dismissAll();
+          },
+          error => {
+            console.error('Error al registrar el ingreso:', error);
+          });
+
+      });
+
     } else {
       console.log('Formulario inválido, verifica los campos');
     }

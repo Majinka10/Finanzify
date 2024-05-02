@@ -14,4 +14,12 @@ export class IngresoService {
   getTiposIngreso(){
     return this.http.get(this.urlTipo+"/ingreso");
   }
+
+  registroIngreso(ingreso: any){
+
+    return this.http.post(this.urlIngreso+"/registro", ingreso);
+    
+  }
+
+
 }
