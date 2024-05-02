@@ -1,7 +1,9 @@
 package com.finanzify.back.controller;
 
+import com.finanzify.back.dto.Entrada;
 import com.finanzify.back.dto.UserDTO;
 import com.finanzify.back.model.Egreso;
+import com.finanzify.back.model.Ingreso;
 import com.finanzify.back.service.EgresoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +29,10 @@ public class EgresoController {
         return ResponseEntity.ok(egresoService.getEgresosByCorreoRecent(usuario.getCorreo()));
     }
 
+    @PostMapping("/registro")
+    public ResponseEntity<Egreso> registro(@RequestBody Entrada entrada) {
+        Egreso egreso = egresoService.registrarEgreso(entrada);
+        return ResponseEntity.ok(egreso);
+    }
 
 }

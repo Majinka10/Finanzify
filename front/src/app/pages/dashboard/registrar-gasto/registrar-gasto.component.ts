@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from '../../../services/usuarios/usuario.service';
 import { CommonModule } from '@angular/common';
+import { EgresoService } from '../../../services/egreso/egreso.service';
 
 @Component({
   selector: 'app-registrar-gasto',
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './registrar-gasto.component.html',
   styleUrl: './registrar-gasto.component.css'
 })
-export class RegistrarGastoComponent {
+export class RegistrarGastoComponent implements OnInit{
   closeResult: string = '';
 
   formulario = new FormGroup({
@@ -22,28 +23,42 @@ export class RegistrarGastoComponent {
     tipo: new FormControl('', Validators.required)
   });
 
-  tiposGasto = [
-    { nombre: 'Alquiler o hipoteca', icono: 'bi-house' },
-    { nombre: 'Alimentación', icono: 'bi-food' },
-    { nombre: 'Servicios públicos', icono: 'bi-lightning-charge-fill' },
-    { nombre: 'Transporte', icono: 'bi-bus-front-fill' },
-    { nombre: 'Educación', icono: 'bi-mortarboard' },
-    { nombre: 'Salud', icono: 'bi-bandaid' },
-    { nombre: 'Entretenimiento', icono: 'bi-controller' },
-    { nombre: 'Impuestos', icono: 'bi-file-earmark-bar-graph' },
-    { nombre: 'Mantenimiento del hogar', icono: 'bi-tools' },
-    { nombre: 'Libros', icono: 'bi-book' },
-    { nombre: 'Ropa', icono: 'bi-handbag-fil' },
-    { nombre: 'Tecnología', icono: 'bi-laptop' },
-    { nombre: 'Deudas y préstamos', icono: 'bi-credit-card' }
-  ];
+  // tiposegreso = [
+  //   { nombre: 'Alquiler o hipoteca', icono: 'bi-house' },
+  //   { nombre: 'Alimentación', icono: 'bi-food' },
+  //   { nombre: 'Servicios públicos', icono: 'bi-lightning-charge-fill' },
+  //   { nombre: 'Transporte', icono: 'bi-bus-front-fill' },
+  //   { nombre: 'Educación', icono: 'bi-mortarboard' },
+  //   { nombre: 'Salud', icono: 'bi-bandaid' },
+  //   { nombre: 'Entretenimiento', icono: 'bi-controller' },
+  //   { nombre: 'Impuestos', icono: 'bi-file-earmark-bar-graph' },
+  //   { nombre: 'Mantenimiento del hogar', icono: 'bi-tools' },
+  //   { nombre: 'Libros', icono: 'bi-book' },
+  //   { nombre: 'Ropa', icono: 'bi-handbag-fil' },
+  //   { nombre: 'Tecnología', icono: 'bi-laptop' },
+  //   { nombre: 'Deudas y préstamos', icono: 'bi-credit-card' }
+  // ];
+
+  tiposEgreso: any[] = [];
 
 
   constructor(
     private usuarioService: UsuarioService,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private egresoService: EgresoService
   ) {}
+
+  ngOnInit(): void {
+    this.egresoService.getTiposEgreso().subscribe(
+      (tipos: any) => {
+        this.tiposEgreso = tipos;
+      },
+      (error) => {
+        console.error('Error al obtener los tipos de ingreso:', error);
+      }
+    );
+  }
 
   tipoSeleccionado: string = '';
 
@@ -92,31 +107,30 @@ export class RegistrarGastoComponent {
   public mensaje: string = '';
   public mostrar_mensaje: boolean = false;
 
-  registrarGasto() {
-    if (this.formulario.valid) {
-      const datos = {
-        cantidad: this.formulario.get('cantidad')?.value,
-        fecha: this.formulario.get('fecha')?.value,
-        descripcion: this.formulario.get('descripcion')?.value,
-        tipo: this.formulario.get('tipo')?.value,
-        icono: this.tiposGasto.find(tipo => tipo.nombre === this.formulario.get('tipo')?.value)?.icono || ''
-      };
-  
-      const respuesta = {
-        registrarGasto: {
-          formularioValido: true,
-          datos: datos,
-          mensaje: 'Formulario válido, enviar datos al servidor',
-          accion: 'Enviar los datos del formulario al servicio'
-        }
-      };
-  
-      console.log(datos);
-  
-      // Aquí puedes enviar los datos al backend utilizando este objeto JSON
+  registrarEgreso() {
+    if (this.formulario.valid){
 
-    // Cerrar el modal una vez que se hayan enviado los datos
-    this.modalService.dismissAll();
+      this.usuarioService.getUsuario().subscribe(usuario => {
+
+        var user: any = usuario;
+
+        var egreso = {
+          cantidad: this.formulario.get('cantidad')?.value,
+          fecha: this.formulario.get('fecha')?.value,
+          descripcion: this.formulario.get('descripcion')?.value,
+          tipo: this.tiposEgreso.find(tipo => tipo.nombre === this.formulario.get('tipo')?.value).id,
+          usuario: user.correo
+        };
+
+        this.egresoService.registroEgreso(egreso).subscribe(response => {
+          this.modalService.dismissAll();
+          },
+          error => {
+            console.error('Error al registrar el egreso:', error);
+          });
+
+      });
+
     } else {
       console.log('Formulario inválido, verifica los campos');
     }
