@@ -1,6 +1,8 @@
 package com.finanzify.back.service;
 
 import com.finanzify.back.dto.Entrada;
+import com.finanzify.back.dto.SalidaDay;
+import com.finanzify.back.model.Egreso;
 import com.finanzify.back.model.Ingreso;
 import com.finanzify.back.model.Usuario;
 import com.finanzify.back.model.tipo_ingreso;
@@ -11,6 +13,8 @@ import com.finanzify.back.repository.IngresoRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,5 +61,35 @@ public class IngresoService {
         ingreso.setTipo(tipo);
 
         return repo.save(ingreso);
+    }
+
+    public List<Ingreso> getIngresosByCorreoThisMonth(String correo) {
+        return repo.findAllThisMonth(correo);
+    }
+
+    public List<SalidaDay> getIngresosByCorreoThisMonthEveryDay(String correo) {
+        List<SalidaDay> salidas = new ArrayList<>();
+        List<Ingreso> ingresos = getIngresosByCorreoThisMonth(correo);
+
+        Calendar calendar = Calendar.getInstance();
+        int today = calendar.get(Calendar.DAY_OF_MONTH);
+
+        for(int i = 1; i <= today; i++){
+            SalidaDay salida = new SalidaDay();
+            salida.setDia(i);
+            salida.setCantidad(0);
+            for(Ingreso ingreso : ingresos){
+                Date fecha = ingreso.getFecha();
+                Calendar calendarForToday = Calendar.getInstance();
+                calendarForToday.setTime(fecha);
+                int numeroDia = calendarForToday.get(Calendar.DAY_OF_MONTH);
+                if(numeroDia == i){
+                    salida.setCantidad(salida.getCantidad() + ingreso.getCantidad());
+                }
+            }
+            salidas.add(salida);
+        }
+
+        return salidas;
     }
 }

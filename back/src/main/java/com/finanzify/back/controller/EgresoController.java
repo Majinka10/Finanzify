@@ -1,6 +1,8 @@
 package com.finanzify.back.controller;
 
 import com.finanzify.back.dto.Entrada;
+import com.finanzify.back.dto.SalidaDay;
+import com.finanzify.back.dto.SalidaDayType;
 import com.finanzify.back.dto.UserDTO;
 import com.finanzify.back.model.Egreso;
 import com.finanzify.back.model.Ingreso;
@@ -33,6 +35,21 @@ public class EgresoController {
     public ResponseEntity<Egreso> registro(@RequestBody Entrada entrada) {
         Egreso egreso = egresoService.registrarEgreso(entrada);
         return ResponseEntity.ok(egreso);
+    }
+
+    @GetMapping("/thisMonth/{correo}")
+    public ResponseEntity<List<Egreso>> findByMonth(@PathVariable String correo) {
+        return ResponseEntity.ok(egresoService.getEgresosByCorreoThisMonth(correo));
+    }
+
+    @GetMapping("/thisMonth/everyDay/{correo}")
+    public ResponseEntity<List<SalidaDay>> findByMonthEveryDay(@PathVariable String correo) {
+        return ResponseEntity.ok(egresoService.getEgresosByCorreoThisMonthEveryDay(correo));
+    }
+
+    @GetMapping("/thisMonth/everyDay/type/{correo}")
+    public ResponseEntity<List<SalidaDayType>> findByMonthEveryDayType(@PathVariable String correo) {
+        return ResponseEntity.ok(egresoService.getEgresosByCorreoThisMonthEveryDayType(correo));
     }
 
 }

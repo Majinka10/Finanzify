@@ -26,4 +26,12 @@ public interface EgresoRepository extends JpaRepository<Egreso, Long>{
             nativeQuery = true
     )
     List<Egreso> findByUsuarioRecent(String usuario);
+
+    @Query(
+            value = "SELECT * FROM egreso " +
+                    "WHERE usuario = ?1 AND " +
+                    "EXTRACT(MONTH FROM fecha) = EXTRACT(MONTH FROM CURRENT_DATE)",
+            nativeQuery = true
+    )
+    List<Egreso> findAllThisMonth(String usuario);
 }

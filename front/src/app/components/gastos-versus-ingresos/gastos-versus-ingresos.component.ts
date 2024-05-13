@@ -1,41 +1,66 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { UsuarioService } from '../../services/usuarios/usuario.service';
+import { IngresoService } from '../../services/ingreso/ingreso.service';
+import { EgresoService } from '../../services/egreso/egreso.service';
+import { Subscription, forkJoin } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-gastos-versus-ingresos',
   standalone: true,
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, CommonModule],
   templateUrl: './gastos-versus-ingresos.component.html',
   styleUrl: './gastos-versus-ingresos.component.css'
 })
-export class GastosVersusIngresosComponent {
-  data: ChartData<'line'> = {
-    labels: this.getLabels(),
-    datasets: [
-      {
-        data: this.getIngresos(), label: 'Ingresos'
-      },
-      {
-        data: this.getGastos(), label: 'Gastos'
-      }
-    ]
-  }
+export class GastosVersusIngresosComponent implements OnInit{
 
-  getLabels(): string[]{
-    var labels = [];
-    for (var i=0; i < 31; i++){
-      labels.push((i + 1).toString());
+  private subscription: Subscription;
+
+  public cargoData: boolean = true;
+
+  constructor(
+    public usuarioService : UsuarioService,
+    public ingresoService : IngresoService,
+    public egresoService : EgresoService
+    ){
+      this.subscription = this.usuarioService.updateFuncion$.subscribe(() => {
+        this.actualizarDashboard();
+      });
     }
-    return labels;
+
+  data: ChartData<'line'> = {
+    labels: [],
+    datasets: []
   }
 
-  getIngresos() {
-    return [35000, 22000, 18000, 28000, 1500, 4000, 5000, 8000, 3000, 32000, 20000, 28000];
-  }
-  
-  getGastos() {
-    return [32000, 21000, 17000, 31000, 2500, 3500, 4500, 7000, 2200, 28000, 19000, 26000];
+  ngOnInit(): void{
+    this.actualizarDashboard();
   }
 
+
+  actualizarDashboard() {
+    if (this.usuarioService.isLogueado()) {
+      this.usuarioService.getUsuario().subscribe(usuario => {
+        forkJoin([
+          this.ingresoService.getIngresosThisMonthEveryDay(usuario),
+          this.egresoService.getEgresosThisMonthEveryDay(usuario)
+        ]).subscribe(([ingresos, egresos]) => {
+          const labels = (ingresos as any[]).map(ingreso => ingreso.dia.toString());
+          const datosIngresos = (ingresos as any[]).map(ingreso => ingreso.cantidad);
+          const datosEgresos = (egresos as any[]).map(egreso => egreso.cantidad);
+
+          this.data = {
+            labels: labels,
+            datasets: [
+              { data: datosIngresos, label: 'Ingresos' },
+              { data: datosEgresos, label: 'Gastos' }
+            ]
+          };
+          this.cargoData = true;
+        });
+      });
+    }
+  }
 }

@@ -1,33 +1,62 @@
 import { Component } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { Subscription, forkJoin } from 'rxjs';
+import { UsuarioService } from '../../services/usuarios/usuario.service';
+import { EgresoService } from '../../services/egreso/egreso.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-distribucion-gastos',
   standalone: true,
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, CommonModule],
   templateUrl: './distribucion-gastos.component.html',
   styleUrl: './distribucion-gastos.component.css'
 })
 export class DistribucionGastosComponent{
 
-  geoChartData: ChartData<'doughnut'> = {
-    labels: ['Arriendo', 'Zapatos', 'Recibo de la luz', 'Gastos médicos'],
-    datasets: [
-      {
-        data: this.getGastos()
-      }
-    ]
-  }
   
-  getGastos() {
-    return [50000, 20000, 5000, 3000];
+  private subscription: Subscription;
+
+  public cargoData: boolean = true;
+
+  constructor(
+    public usuarioService : UsuarioService,
+    public egresoService : EgresoService
+    ){
+      this.subscription = this.usuarioService.updateFuncion$.subscribe(() => {
+        this.actualizarDashboard();
+      });
+    }
+
+  data: ChartData<'line'> = {
+    labels: [],
+    datasets: []
   }
-  
-  private data_2 = [
-    { title: "Arriendo", fecha: "Marzo 22, 2024", cantidad: 50000, tipo: "Gasto" },
-    { title: "Recibo de la luz", fecha: "Marzo 12, 2024", cantidad: 20000, tipo: "Gasto" },
-    { title: "Zapatos", fecha: "Marzo 03, 2024", cantidad: 5000, tipo: "Gasto" },
-    { title: "Gastos médicos", fecha: "Marzo 01, 2024", cantidad: 3000, tipo: "Gasto" }
-  ];
+
+  ngOnInit(): void{
+    this.actualizarDashboard();
+  }
+
+
+  actualizarDashboard() {
+    if (this.usuarioService.isLogueado()) {
+      this.usuarioService.getUsuario().subscribe(usuario => {
+        forkJoin([
+          this.egresoService.getEgresosThisMonthEveryDayType(usuario)
+        ]).subscribe(([egresos]) => {
+          const labels = (egresos as any[]).map(ingreso => ingreso.tipo);
+          const datosEgresos = (egresos as any[]).map(egreso => egreso.cantidad);
+
+          this.data = {
+            labels: labels,
+            datasets: [
+              { data: datosEgresos}
+            ]
+          };
+          this.cargoData = true;
+        });
+      });
+    }
+  }
 }

@@ -1,6 +1,7 @@
 package com.finanzify.back.controller;
 
 import com.finanzify.back.dto.Entrada;
+import com.finanzify.back.dto.SalidaDay;
 import com.finanzify.back.dto.UserDTO;
 import com.finanzify.back.model.Egreso;
 import com.finanzify.back.model.Ingreso;
@@ -39,6 +40,15 @@ public class IngresoController {
     public ResponseEntity<Ingreso> registro(@RequestBody Entrada entrada) {
         Ingreso ingreso = ingresoService.registrarIngreso(entrada);
         return ResponseEntity.ok(ingreso);
+    }
+    @GetMapping("/thisMonth/{correo}")
+    public ResponseEntity<List<Ingreso>> findByMonth(@PathVariable String correo) {
+        return ResponseEntity.ok(ingresoService.getIngresosByCorreoThisMonth(correo));
+    }
+
+    @GetMapping("/thisMonth/everyDay/{correo}")
+    public ResponseEntity<List<SalidaDay>> findByMonthEveryDay(@PathVariable String correo) {
+        return ResponseEntity.ok(ingresoService.getIngresosByCorreoThisMonthEveryDay(correo));
     }
 
 }

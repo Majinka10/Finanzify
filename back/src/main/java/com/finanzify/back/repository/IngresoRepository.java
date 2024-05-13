@@ -26,4 +26,12 @@ public interface IngresoRepository extends JpaRepository<Ingreso, Long>{
             nativeQuery = true
     )
     List<Ingreso> findByUsuarioRecent(String usuario);
+
+    @Query(
+            value = "SELECT * FROM ingreso " +
+                    "WHERE usuario = ?1 AND " +
+                    "EXTRACT(MONTH FROM fecha) = EXTRACT(MONTH FROM CURRENT_DATE)",
+            nativeQuery = true
+    )
+    List<Ingreso> findAllThisMonth(String usuario);
 }

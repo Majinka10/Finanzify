@@ -21,5 +21,8 @@ export class IngresoService {
     
   }
 
+  getIngresosThisMonthEveryDay(usuario: any){
+    return this.http.get(this.urlIngreso+"/thisMonth/everyDay/"+usuario.correo);
+  }
 
 }
