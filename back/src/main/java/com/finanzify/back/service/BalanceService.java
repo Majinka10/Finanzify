@@ -20,8 +20,10 @@ public class BalanceService {
     private IngresoRepository ingresoRepository;
 
     public Balance getBalance(String correo) {
-        List<Ingreso> ingresos = ingresoRepository.findByUsuario(correo);
-        List<Egreso> egresos = egresoRepository.findByUsuario(correo);
+        //List<Ingreso> ingresos = ingresoRepository.findByUsuario(correo);
+        //List<Egreso> egresos = egresoRepository.findByUsuario(correo);
+        List<Ingreso> ingresos = ingresoRepository.findAllThisMonth(correo);
+        List<Egreso> egresos = egresoRepository.findAllThisMonth(correo);
 
         int total_ingresos = 0;
         int total_egresos = 0;
