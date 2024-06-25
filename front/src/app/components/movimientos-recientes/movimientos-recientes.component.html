@@ -34,17 +34,3 @@
         </div>
     }
 </div>
-<h4>Próximos</h4>
-<div class="d-flex flex-column">
-    @for (item of items_future; track items_future) {
-        <div class="d-flex align-items-center">
-            <i class="bi fs-3 me-3 pb-2" [class]="item.icon"></i>
-            <p>
-                <span class="fs-5 ">{{item.title}}</span>
-                <br>
-                <span>{{item.fecha}}</span>
-            </p>
-            <span class="ms-auto p-2" [style]="{ color: item.tipo === 'Ingreso' ? 'green' : 'red' }">${{item.cantidad.toLocaleString()}}</span>
-        </div>
-    }
-</div>
