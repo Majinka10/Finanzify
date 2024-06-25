@@ -3,15 +3,13 @@ package com.finanzify.back.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.finanzify.back.dto.UserDTO;
+import com.finanzify.back.mappers.UsuarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.finanzify.back.model.Usuario;
 import com.finanzify.back.service.UsuarioService;
@@ -23,7 +21,9 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-    
+    @Autowired
+    private ProjectInfoAutoConfiguration projectInfoAutoConfiguration;
+
     @GetMapping
     public ResponseEntity<List<Usuario>> getuUsuarios(){
         return ResponseEntity.ok(usuarioService.getUsuarios());
@@ -67,5 +67,12 @@ public class UsuarioController {
         }else{
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario ya existente");
         }   
+    }
+
+    @GetMapping("/userByCorreo")
+    public ResponseEntity<UserDTO> usuarioByCorreo(@RequestParam String correo){
+        Usuario u = usuarioService.findByCorreo(correo);
+        UserDTO dto = UsuarioMapper.INSTANCE.usuarioToUsuarioDTO(u);
+        return ResponseEntity.ok(dto);
     }
 }

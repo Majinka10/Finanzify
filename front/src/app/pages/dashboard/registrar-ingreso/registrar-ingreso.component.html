@@ -1,0 +1,100 @@
+<div class="card h-100" (click)="open(mymodal)" id="bg-registrar-ingreso">
+    <div class="card-body">
+        <p class="mt-5 text-white">Añadir Ingreso</p>
+    </div>
+</div>
+   
+<ng-template #mymodal let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header" data-bs-theme="dark">
+        <h2 class="text-center modal-title">Registrar Ingreso</h2>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body" data-bs-theme="dark">
+        <div class="container d-flex justify-content-center align-items-center">
+            <form class="row g-3 form" [formGroup]="formulario" (ngSubmit)="registrarIngreso()">
+                <div class="mb-3 form-group">
+                    <label for="cantidad">Cantidad:</label>
+                    <input 
+                        [ngClass]="
+                        formulario.get('cantidad')?.status === 'INVALID'
+                        ? addClassValidate('cantidad')
+                        : 'is-valid'
+                        "
+                        type="number" 
+                        class="form-control" 
+                        placeholder="Ingrese la cantidad"
+                        formControlName="cantidad"
+                        min="0"
+                        required
+                    />
+                    <div 
+                        *ngIf="
+                        formulario.controls.cantidad.dirty || formulario.controls.cantidad.touched
+                        "
+                        class="invalid-feedback">
+                        Verifique la cantidad ingresada.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input 
+                        type="date" 
+                        class="form-control" 
+                        formControlName="fecha"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <input
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Escriba una descripción (opcional)"
+                        formControlName="descripcion"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo:</label>
+                    <select class="form-select" formControlName="tipo" required>
+                        <option value="" disabled selected>Seleccione un tipo</option>
+                            <ng-container *ngIf="tiposIngreso">
+                                <ng-container *ngFor="let tipo of tiposIngreso">
+                                    <option [value]="tipo.nombre">
+                                        {{ tipo.nombre }}
+                                    </option>
+                                </ng-container>
+                            </ng-container>
+                    </select>
+                </div>
+                <!-- <div class="container text-center">
+                    <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                      <div class="col">
+                          <button class="btn btn-secondary dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>
+                            Seleccione los tipos
+                          </button>
+                            <button *ngFor="let tipo of tiposIngreso" class="dropdown-item" (click)="seleccionarTipo(tipo.nombre)">
+                              <i class="bi fs-3 me-3" [class]="tipo.icono"></i>
+                              {{ tipo.nombre }}
+                              <span *ngIf="tipoSeleccionado === tipo.nombre">&#10003;</span>
+                            </button>
+                      </div>
+                    </div>
+                </div> -->
+                <div id="cBoton" class="d-flex">
+                    <button 
+                        [disabled]="!formulario.valid"
+                        id="myboton_registrar" 
+                        type="submit" 
+                        class="btn btn-primary">
+                        Registrar Ingreso
+                    </button>
+                    @if (mostrar_mensaje) {
+                        <div id="advertencia" class="alert alert-danger flex-grow-1" role="alert">
+                            {{mensaje}}
+                        </div>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</ng-template>

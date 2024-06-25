@@ -7,5 +7,6 @@ import com.finanzify.back.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, String> {
-    
+
+    public Usuario findByCorreo(String correo);
 }

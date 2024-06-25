@@ -2,6 +2,7 @@ package com.finanzify.back.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class Egreso {
 
     @ManyToOne
     @JoinColumn(name = "usuario")
+    @JsonIgnore
     private Usuario usuario;
 
     private int cantidad;

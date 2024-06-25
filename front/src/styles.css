@@ -1,2 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import "~bootstrap-icons/font/bootstrap-icons.css"; */
+/* html,body
+{
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+} */
+
+/* * {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+  } */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+app-root {
+    display: block;
+    min-height: 100vh;
+    /* width: 98vw; */
+} 

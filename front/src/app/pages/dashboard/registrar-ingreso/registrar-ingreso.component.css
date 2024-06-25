@@ -1,0 +1,14 @@
+#bg-registrar-ingreso {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1003%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M 0%2c174 C 57.6%2c163.8 172.8%2c113.4 288%2c123 C 403.2%2c132.6 460.8%2c235.6 576%2c222 C 691.2%2c208.4 748.8%2c49.6 864%2c55 C 979.2%2c60.4 1036.8%2c232.4 1152%2c249 C 1267.2%2c265.6 1382.4%2c160.2 1440%2c138L1440 560L0 560z' fill='%23184a7e'%3e%3c/path%3e%3cpath d='M 0%2c510 C 96%2c471.4 288%2c330.2 480%2c317 C 672%2c303.8 768%2c431.2 960%2c444 C 1152%2c456.8 1344%2c393.6 1440%2c381L1440 560L0 560z' fill='rgba(43%2c 165%2c 205%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1003'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    background-size: cover; /* Opcional: ajusta el tamaño de la imagen de fondo */
+    cursor: pointer;
+}
+
+::ng-deep .dark-modal .modal-content{
+  width: 500px;
+  box-shadow: 0 0 20px rgba(0, 0, 255, 0.5), 0 0 50px rgba(0, 0, 255, 0.5), 0 0 100px rgba(0, 0, 255, 0.5), 0 0 200px rgba(0, 0, 255, 0.5), 0 0 300px rgba(0, 0, 255, 0.5), 0 0 400px rgba(0, 0, 255, 0.5);
+  background-color: #080c26;
+  color: #fff;
+  padding: 40px;
+  border-radius: 10px;
+}

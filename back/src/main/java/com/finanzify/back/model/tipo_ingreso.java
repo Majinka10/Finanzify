@@ -2,12 +2,8 @@ package com.finanzify.back.model;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 public class tipo_ingreso {
@@ -17,8 +13,11 @@ public class tipo_ingreso {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Ingreso> ingresos;
+
+    private String icono;
 
     public tipo_ingreso() {
     }
@@ -45,5 +44,13 @@ public class tipo_ingreso {
 
     public void setIngresos(List<Ingreso> ingresos) {
         this.ingresos = ingresos;
+    }
+
+    public String getIcono() {
+        return icono;
+    }
+
+    public void setIcono(String icono) {
+        this.icono = icono;
     }
 }

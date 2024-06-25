@@ -1,0 +1,23 @@
+<header class="text-white sticky-top">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+      <a routerLink="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-white text-decoration-none">
+        <i class="bi bi-house me-2 fs-3"></i>
+        <strong>
+          <span class="fs-2" style="font-family: Arial, Helvetica, sans-serif;">Finanzify</span>
+        </strong>
+      </a>
+  
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link px-2">Home</a></li>
+        <li><a routerLink="/dashboard" routerLinkActive="active" class="nav-link px-2">Features</a></li>
+        <li><a routerLink="/faqs" routerLinkActive="active" class="nav-link px-2">FAQs</a></li>
+        <li><a routerLink="/about" routerLinkActive="active" class="nav-link px-2">About</a></li>
+      </ul>
+  
+      <div class="col-md-3 text-end">
+        <app-ingreso></app-ingreso>
+      </div>
+    </div>
+  </div>
+</header>
