@@ -1,4 +1,16 @@
 :host {
-    grid-column: 2/2;
-    grid-row: 1/3;
-}
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Evita el desbordamiento del host */
+  }
+  
+  .dashboard-content {
+    flex: 1;
+    overflow: auto;
+  }
+  
+  .card, .container, .row {
+    max-width: 100%; /* Evita que los elementos excedan el 100% del ancho disponible */
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+  }
+  

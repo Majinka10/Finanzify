@@ -71,7 +71,7 @@ export class DashboardComponent implements OnInit, OnDestroy{
     if(!this.usuarioService.isLogueado()){
       console.log("No se ha iniciado sesion");
       // window.alert("No se ha iniciado sesion");
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
     }
   }
 

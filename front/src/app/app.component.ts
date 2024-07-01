@@ -22,15 +22,25 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
        SidebarComponent]
 })
 export class AppComponent {
-  constructor(public usuarioService : UsuarioService,
-    private router: Router,
-    ){}
+  showHeader: boolean = true;
+  showFooter: boolean = true;
 
-  isValid(): boolean {
-    if (this.router.url != '/') {
-              return false;
-      }
-    return true;
+  constructor(private router: Router) {}
+
+  ngAfterViewInit() {
+    this.router.events.subscribe(() => {
+      this.updateLayout();
+    });
+  }
+
+  updateLayout() {
+    if (this.router.url.includes('/dashboard')) {
+      this.showHeader = false;
+      this.showFooter = false;
+    } else {
+      this.showHeader = true;
+      this.showFooter = true;
+    }
   }
 }
 

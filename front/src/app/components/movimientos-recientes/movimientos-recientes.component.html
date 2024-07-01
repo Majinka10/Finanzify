@@ -20,13 +20,13 @@
     </div>
 </div>
 <hr>
-<h4 *ngIf="usuarioCargado">Movimientos Recientes</h4>
-<div class="d-flex flex-column">
+<h5 *ngIf="usuarioCargado">Movimientos Recientes</h5>
+<div class="d-flex flex-column h-50">
     @for (item of items_last; track items_last){
         <div class="d-flex align-items-center">
             <i class="bi fs-3 me-3 pb-2" [class]="item.tipo.icono"></i>
             <p>
-                <span class="fs-5 ">{{item.tipo.nombre}}</span>
+                <span class="fs-6">{{item.tipo.nombre}}</span>
                 <br>
                 <span>{{item.fecha}}</span>
             </p>
