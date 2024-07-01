@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: 250px 1fr;
   grid-template-rows: 1fr;
+  height: 100%;
   overflow: hidden; /* Evita el desbordamiento del contenedor principal */
 }
 
@@ -21,6 +22,7 @@ main {
   overflow-y: auto;
   overflow-x: hidden; /* Evita el desbordamiento horizontal del main */
   grid-column: 1 / -1;
+  height: 100%;
 }
 
 app-footer {
