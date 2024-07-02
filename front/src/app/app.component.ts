@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuarioService } from './services/usuarios/usuario.service';
+// import { UsuarioService } from './services/usuarios/usuario.service';
 import { RouterOutlet, RouterLink, Router, RouterModule } from '@angular/router';
 import { FooterComponent } from './pages/home/footer/footer.component';
 import { HeaderComponent } from './pages/home/header/header.component';
@@ -34,12 +34,12 @@ export class AppComponent {
   }
 
   updateLayout() {
-    if (this.router.url.includes('/dashboard')) {
-      this.showHeader = false;
-      this.showFooter = false;
-    } else {
+    if (this.router.url == '/') {
       this.showHeader = true;
       this.showFooter = true;
+    } else {
+      this.showHeader = false;
+      this.showFooter = false;
     }
   }
 }
