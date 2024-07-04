@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { UsuarioService } from '../../services/usuarios/usuario.service';
-import { EgresoService } from '../../services/egreso/egreso.service';
 import { CommonModule } from '@angular/common';
+import { IngresoService } from '../../services/ingreso/ingreso.service';
 
 @Component({
-  selector: 'app-distribucion-gastos',
+  selector: 'app-distribucion-ingresos',
   standalone: true,
   imports: [BaseChartDirective, CommonModule],
-  templateUrl: './distribucion-gastos.component.html',
-  // styleUrls: ['./distribucion-gastos.component.css']
+  templateUrl: './distribucion-ingresos.component.html',
+  // styleUrls: ['./distribucion-ingresos.component.css']
 })
-export class DistribucionGastosComponent implements OnInit {
+export class DistribucionIngresosComponent implements OnInit {
   data: ChartData<'doughnut'> = {
     labels: [],
     datasets: [
-      { data: [], label: 'Gastos por categoría' }
+      { data: [], label: 'Ingresos por categoría' }
     ]
   };
 
@@ -24,7 +24,7 @@ export class DistribucionGastosComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private egresoService: EgresoService
+    private egresoService: IngresoService
   ) {}
 
   ngOnInit() {
@@ -35,9 +35,9 @@ export class DistribucionGastosComponent implements OnInit {
     if (this.usuarioService.isLogueado()) {
       this.loading = false;
       this.usuarioService.getUsuario().subscribe(usuario => {
-        this.egresoService.getEgresosThisMonthEveryDayType(usuario).subscribe(egresosPorTipo => {
-          const labels = (egresosPorTipo as any[]).map(egreso => egreso.tipo);
-          const datos = (egresosPorTipo as any[]).map(egreso => egreso.cantidad);
+        this.egresoService.getIngresosThisMonthEveryDayType(usuario).subscribe(ingresoPorTipo => {
+          const labels = (ingresoPorTipo as any[]).map(egreso => egreso.tipo);
+          const datos = (ingresoPorTipo as any[]).map(egreso => egreso.cantidad);
 
           this.data.labels = labels;
           this.data.datasets[0].data = datos;

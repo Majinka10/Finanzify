@@ -7,9 +7,9 @@ import { Subject } from 'rxjs';
 })
 export class UsuarioService {
 
-  private updateFuncion = new Subject<void>();
+  // Subject para notificar actualizaciones en los ingresos y egresos
+  public updateFuncion = new Subject<void>();
   updateFuncion$ = this.updateFuncion.asObservable();
-
   update(){
     this.updateFuncion.next();
   }

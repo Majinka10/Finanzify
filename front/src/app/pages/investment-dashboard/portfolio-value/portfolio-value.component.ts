@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { Subscription } from 'rxjs';
 import { InversionService, Inversion } from '../../../services/inversiones/inversion.service';
 import { UsuarioService } from '../../../services/usuarios/usuario.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-portfolio-value',
@@ -11,7 +12,7 @@ import { UsuarioService } from '../../../services/usuarios/usuario.service';
 //   styleUrls: ['./portfolio-value.component.css'],
   imports: [CommonModule]
 })
-export class PortfolioValueComponent implements OnInit {
+export class PortfolioValueComponent implements OnInit, OnDestroy {
   inversiones: Inversion[] = [];
   currentValue: number = 0;
   investedValue: number = 0;
@@ -22,9 +23,15 @@ export class PortfolioValueComponent implements OnInit {
   usuario: any;
   usuarioCargado: boolean = false;
 
+  private subscription: Subscription;
+
   constructor(private investmentService: InversionService,
     private usuarioService: UsuarioService
-  ) {}
+  ) {
+    this.subscription = this.usuarioService.updateFuncion$.subscribe(() => {
+      this.actualizarPortfolioValue();
+    });
+  }
 
   ngOnInit(): void {
 
@@ -69,5 +76,21 @@ export class PortfolioValueComponent implements OnInit {
     } else {
       return '→';
     }
+  }
+
+  actualizarPortfolioValue(){
+    this.investmentService.getInversiones(this.usuario).subscribe(inversiones => {
+      this.inversiones = inversiones;
+      this.currentValue = this.investmentService.getCurrentValue(inversiones);
+      this.investedValue = this.investmentService.getInvestedValue(inversiones);
+      this.currentChange = this.investmentService.getMonthlyChange(inversiones, true);
+      this.investedChange = this.investmentService.getMonthlyChange(inversiones, false);
+      this.avgRendimiento = this.currentValue / this.inversiones.length;
+      this.totalInversiones = this.inversiones.length;
+    });
+  }
+
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 }
