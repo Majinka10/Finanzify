@@ -6,6 +6,7 @@ import { PortfolioValueComponent } from './portfolio-value/portfolio-value.compo
 import { MovimientosRecientesComponent } from '../../components/movimientos-recientes/movimientos-recientes.component';
 import { PlatformAllocationComponent } from './platform-allocation/platform-allocation.component';
 import { InvestmentsChartComponent } from './investmets-chart/investments-chart.component';
+import { RegistrarInversionComponent } from './registrar-inversion/registrar-inversion.component';
 // import { PlatformAllocationComponent } from './platform-allocation.component';
 
 @Component({
@@ -14,7 +15,7 @@ import { InvestmentsChartComponent } from './investmets-chart/investments-chart.
   imports: [CommonModule, OverallPerformanceComponent,
     HeaderInternoComponent, PortfolioValueComponent, 
     MovimientosRecientesComponent, PlatformAllocationComponent,
-    InvestmentsChartComponent
+    InvestmentsChartComponent, RegistrarInversionComponent
   ],
   templateUrl: './investment-dashboard.component.html',
   styleUrls: ['./investment-dashboard.component.css']
