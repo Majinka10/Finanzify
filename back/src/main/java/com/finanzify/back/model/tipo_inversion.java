@@ -2,6 +2,7 @@ package com.finanzify.back.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,7 +14,8 @@ public class tipo_inversion {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "tipo")
+    @OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Inversion> inversiones;
 
     public tipo_inversion() {
