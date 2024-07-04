@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import { UsuarioService } from '../../services/usuarios/usuario.service';
-import { IngresoService } from '../../services/ingreso/ingreso.service';
-import { EgresoService } from '../../services/egreso/egreso.service';
 import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { UsuarioService } from '../../../services/usuarios/usuario.service';
+import { IngresoService } from '../../../services/ingreso/ingreso.service';
+import { EgresoService } from '../../../services/egreso/egreso.service';
 
 @Component({
-  selector: 'app-distribucion-ano',
+  selector: 'app-comparacion-ingresos-gastos',
   standalone: true,
   imports: [BaseChartDirective, CommonModule],
-  templateUrl: './distribucion-ano.component.html',
-  styleUrls: ['./distribucion-ano.component.css']
+  templateUrl: './comparacion-ingresos-gastos.component.html',
+  // styleUrls: ['./comparacion-ingresos-gastos.component.css']
 })
-export class DistribucionAnoComponent implements OnInit {
+export class ComparacionIngresosGastosComponent implements OnInit {
   data: ChartData<'bar'> = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: ['Ingresos', 'Gastos'],
     datasets: [
-      { data: [], label: 'Ingresos' },
-      { data: [], label: 'Gastos' }
+      { data: [], label: 'Cantidad' }
     ]
   };
 
@@ -39,25 +38,17 @@ export class DistribucionAnoComponent implements OnInit {
     if (this.usuarioService.isLogueado()) {
       this.loading = false;
       this.usuarioService.getUsuario().subscribe(usuario => {
-        console.log('Usuario:', usuario); // Verificar el usuario recibido
         forkJoin([
           this.ingresoService.getIngresosThisMonthEveryDay(usuario),
           this.egresoService.getEgresosThisMonthEveryDay(usuario)
         ]).subscribe(([ingresos, egresos]) => {
+          const totalIngresos = (ingresos as any[]).reduce((sum, ingreso) => sum + ingreso.cantidad, 0);
+          const totalEgresos = (egresos as any[]).reduce((sum, egreso) => sum + egreso.cantidad, 0);
 
-          this.data.datasets[0].data = this.getIngresos();
-          this.data.datasets[1].data = this.getGastos();
+          this.data.datasets[0].data = [totalIngresos, totalEgresos];
           this.loading = true;
         });
       });
     }
-  }
-
-  getIngresos() {
-    return [35000, 22000, 18000, 28000, 1500, 4000, 5000, 8000, 3000, 32000, 20000, 28000];
-  }
-  
-  getGastos() {
-    return [32000, 21000, 17000, 31000, 2500, 3500, 4500, 7000, 2200, 28000, 19000, 26000];
   }
 }

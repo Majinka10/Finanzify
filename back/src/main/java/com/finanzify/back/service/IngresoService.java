@@ -2,6 +2,7 @@ package com.finanzify.back.service;
 
 import com.finanzify.back.dto.Entrada;
 import com.finanzify.back.dto.SalidaDay;
+import com.finanzify.back.dto.SalidaDayType;
 import com.finanzify.back.model.Egreso;
 import com.finanzify.back.model.Ingreso;
 import com.finanzify.back.model.Usuario;
@@ -92,4 +93,34 @@ public class IngresoService {
 
         return salidas;
     }
+
+    public List<SalidaDayType> getIngresosByCorreoThisMonthEveryDayType(String correo) {
+        List<SalidaDayType> salidas = new ArrayList<>();
+        List<Ingreso> ingresos = getIngresosByCorreoThisMonth(correo);
+        List<String> tipos = new ArrayList<>();
+
+        for(Ingreso ingreso : ingresos){
+            String tipo = ingreso.getTipo().getNombre();
+            if(!tipos.contains(tipo)){
+                tipos.add(tipo);
+            }
+        }
+
+        for(String tipo : tipos) {
+            SalidaDayType salida = new SalidaDayType();
+            salida.setTipo(tipo);
+            salida.setCantidad(0);
+            for (Ingreso ingreso : ingresos) {
+                if (ingreso.getTipo().getNombre().equals(tipo)) {
+                    salida.setCantidad(salida.getCantidad() + ingreso.getCantidad());
+                }
+            }
+            salidas.add(salida);
+
+        }
+
+        return salidas;
+
+    }
+
 }
