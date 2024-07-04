@@ -19,6 +19,7 @@ export class RegistrarInversionComponent implements OnInit {
   formulario = new FormGroup({
     cantidad: new FormControl('', [Validators.required, Validators.min(0)]),
     fecha: new FormControl('', Validators.required),
+    rendimiento: new FormControl('', Validators.required),
     descripcion: new FormControl(''),
     tipo: new FormControl('', Validators.required)
   });
@@ -95,6 +96,7 @@ export class RegistrarInversionComponent implements OnInit {
           cantidad: this.formulario.get('cantidad')?.value,
           fecha: this.formulario.get('fecha')?.value,
           descripcion: this.formulario.get('descripcion')?.value,
+          rendimiento: this.formulario.get('rendimiento')?.value,
         //   tipo: this.tiposInversion.find(tipo => tipo.nombre === this.formulario.get('tipo')?.value).id,
           tipo: this.tiposInversion.find(tipo => tipo.nombre === this.formulario.get('tipo')?.value),
           usuario: user

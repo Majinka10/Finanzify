@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { CommonModule } from '@angular/common';
 // import { InvestmentService, Inversion } from '../services/investment.service';
 import { InversionService, Inversion } from '../../../services/inversiones/inversion.service';
 import { UsuarioService } from '../../../services/usuarios/usuario.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-investments-chart',
@@ -13,7 +14,7 @@ import { UsuarioService } from '../../../services/usuarios/usuario.service';
 //   styleUrls: ['./investments-chart.component.css'],
   imports: [BaseChartDirective, CommonModule]
 })
-export class InvestmentsChartComponent implements OnInit {
+export class InvestmentsChartComponent implements OnInit, OnDestroy {
   inversiones: Inversion[] = [];
   chartData: ChartData<'bar'> = {
     labels: [],
@@ -37,12 +38,18 @@ export class InvestmentsChartComponent implements OnInit {
     }
   };
 
+  private subscription: Subscription;
   usuario: any;
   usuarioCargado: boolean = false;
+  loading: boolean = false;
 
   constructor(private investmentService: InversionService,
     private usuarioService: UsuarioService
-  ) {}
+  ) {
+    this.subscription = this.usuarioService.updateFuncion$.subscribe(() => {
+      this.actualizarInvestmentsChart();
+    });
+  }
 
   ngOnInit(): void {
 
@@ -55,13 +62,27 @@ export class InvestmentsChartComponent implements OnInit {
           this.investmentService.getInversiones(this.usuario).subscribe(inversiones => {
             this.inversiones = inversiones;
             this.updateChartData();
+            this.loading = true;
           });
         },
         error => {
           console.error('Error al obtener el usuario:', error);
         }
       );
-    }
+    } 
+  }
+
+  actualizarInvestmentsChart(){
+    this.loading = false;
+    this.investmentService.getInversiones(this.usuario).subscribe(inversiones => {
+      this.inversiones = inversiones;
+      this.updateChartData();
+      this.loading = true;
+    });
+  }
+
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 
   updateChartData(): void {

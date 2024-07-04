@@ -7,7 +7,7 @@ import { OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GastosVersusIngresosComponent } from '../../components/gastos-versus-ingresos/gastos-versus-ingresos.component';
 import { HeaderInternoComponent } from '../../components/header-interno/header-interno.component';
-import { BalanceComponent } from './balance/balance.component';
+// import { BalanceComponent } from './balance/balance.component';
 import { RegistrarIngresoComponent } from './registrar-ingreso/registrar-ingreso.component';
 import { RegistrarGastoComponent } from './registrar-gasto/registrar-gasto.component';
 import { BalanceService } from '../../services/balance/balance.service';
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [GastosVersusIngresosComponent, RegistrarGastoComponent, RegistrarIngresoComponent, BalanceComponent,HeaderInternoComponent,MovimientosRecientesComponent, DistribucionGastosComponent, CommonModule],
+  imports: [GastosVersusIngresosComponent, RegistrarGastoComponent, RegistrarIngresoComponent,  HeaderInternoComponent,MovimientosRecientesComponent, DistribucionGastosComponent, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -69,9 +69,9 @@ export class DashboardComponent implements OnInit, OnDestroy{
     }
 
     if(!this.usuarioService.isLogueado()){
-      console.log("No se ha iniciado sesion");
-      // window.alert("No se ha iniciado sesion");
-      // this.router.navigate(['/']);
+      // console.log("No se ha iniciado sesion");
+      window.alert("No se ha iniciado sesion");
+      this.router.navigate(['/']);
     }
   }
 
