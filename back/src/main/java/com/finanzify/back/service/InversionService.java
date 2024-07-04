@@ -17,4 +17,12 @@ public class InversionService {
     public List<Inversion> getInversionesUsuario(String correo) {
         return repo.findByUsuarioCorreo(correo);
     }
+
+    public List<Inversion> getAllInversiones() {
+        return repo.findAll();
+    }
+
+    public Inversion registrarInversion(Inversion inversion) {
+        return repo.save(inversion);
+    }
 }

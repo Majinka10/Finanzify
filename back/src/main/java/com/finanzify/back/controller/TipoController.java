@@ -4,8 +4,10 @@ import com.finanzify.back.dto.TipoDTO;
 import com.finanzify.back.mappers.TipoMapper;
 import com.finanzify.back.model.tipo_egreso;
 import com.finanzify.back.model.tipo_ingreso;
+import com.finanzify.back.model.tipo_inversion;
 import com.finanzify.back.service.tipo_egresoService;
 import com.finanzify.back.service.tipo_ingresoService;
+import com.finanzify.back.service.tipo_inversionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,9 @@ public class TipoController {
     @Autowired
     private tipo_ingresoService tipoIngresoService;
 
+    @Autowired
+    private tipo_inversionService tipoInversionService;
+
     @GetMapping("/egreso")
     public ResponseEntity<List<tipo_egreso>> getTipoEgreso() {
         var tipoEgresos = this.tipoEgresoService.getAll();
@@ -38,5 +43,13 @@ public class TipoController {
         //var tipos = tipoIngresos.stream().map(p->TipoMapper.INSTANCE.tipoIngresoToTipoDto(p)).collect(Collectors.toList());
 
         return ResponseEntity.ok(tipoIngresos);
+    }
+
+    @GetMapping("/inversion")
+    public ResponseEntity<List<tipo_inversion>> getTipoInversion() {
+        var tipoInversiones = this.tipoInversionService.getAll();
+        //var tipos = tipoIngresos.stream().map(p->TipoMapper.INSTANCE.tipoIngresoToTipoDto(p)).collect(Collectors.toList());
+
+        return ResponseEntity.ok(tipoInversiones);
     }
 }

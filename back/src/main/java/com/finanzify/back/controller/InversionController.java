@@ -27,4 +27,17 @@ public class InversionController {
         return inversionesDTO;
     }
 
+    @GetMapping("/all")
+    public List<Inversion> getAllInversiones() {
+        List<Inversion> inversiones = inversionService.getAllInversiones();
+        return inversiones;
+    }
+
+    @PostMapping("/registro")
+    public Inversion registro(
+            @RequestBody Inversion inversion
+    ) {
+        return inversionService.registrarInversion(inversion);
+    }
+
 }

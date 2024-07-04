@@ -78,36 +78,6 @@ export class OverallPerformanceComponent implements OnInit {
               ]
             };
           });
-
-          this.investmentService.getInversiones(this.usuario).subscribe(inversiones => {
-
-            console.log('Inversiones:', inversiones);
-
-            const labels = inversiones.map(inv => {
-              const fecha = typeof inv.fecha === 'string' ? new Date(inv.fecha) : inv.fecha;
-              
-              if (fecha instanceof Date && !isNaN(fecha.getTime())) {
-                return fecha.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-              } else {
-                return 'N/A';
-              }
-            });
-            const data = inversiones.map(inv => inv.rendimiento);
-
-      
-      
-            this.data = {
-              labels: labels,
-              datasets: [
-                {
-                  label: 'Overall Performance',
-                  data: data,
-                  borderColor: 'rgba(75, 192, 192, 1)',
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)'
-                }
-              ]
-            };
-          });
         },
         error => {
           console.error('Error al obtener el usuario:', error);
