@@ -7,7 +7,6 @@ import {
   provideCharts,
   withDefaultRegisterables
 } from 'ng2-charts';
-import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       HttpClientModule
     ),
-    provideHttpClient(withFetch(), withInterceptors([SpinnerInterceptor])),
+    provideHttpClient(withFetch()),
     provideCharts(withDefaultRegisterables())
   ]
 };

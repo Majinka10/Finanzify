@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title mb-4">Portfolio Value</h5>
+      <p class="justify-content-between m-0 d-flex">
+        <span>Current Value</span>
+        <span [ngClass]="getChangeClass(currentChange)">{{ getChangeIcon(currentChange) }} {{ currentChange.toFixed(1) }}%</span>
+      </p>
+      <h2 class="mb-5 fw-bold">${{ currentValue.toFixed(2) }}</h2>
+      <p class="justify-content-between m-0 d-flex">
+        <span>Invested Value</span>
+        <span [ngClass]="getChangeClass(investedChange)">{{ getChangeIcon(investedChange) }} {{ investedChange.toFixed(1) }}%</span>
+      </p>
+      <h3 class="mb-5">${{ investedValue.toFixed(2) }}</h3>
+      <p class="justify-content-between m-0 d-flex">
+        <span>Net Return</span>
+      </p>
+      <h3 class="mb-5">${{ (currentValue - investedValue).toFixed(2) }}</h3>
+      <p class="justify-content-between m-0 d-flex">
+        <span>Average Return</span>
+        <!-- <span>{{ avgRendimiento.toFixed(2) }}</span> -->
+      </p>
+      <h3 class="mb-5">${{ avgRendimiento.toFixed(2) }}</h3>
+      <p class="justify-content-between m-0 d-flex">
+        <span>Total Investments</span>
+        <!-- <span>{{ totalInversiones }}</span> -->
+      </p>
+      <h3 class="mb-4">{{ totalInversiones }}</h3>
+      <!-- <p>Estimated growth E.A: 13%</p> -->
+    </div>
+  </div>
+  

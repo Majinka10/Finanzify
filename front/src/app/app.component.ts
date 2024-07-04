@@ -1,11 +1,10 @@
 import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuarioService } from './services/usuarios/usuario.service';
+// import { UsuarioService } from './services/usuarios/usuario.service';
 import { RouterOutlet, RouterLink, Router, RouterModule } from '@angular/router';
 import { FooterComponent } from './pages/home/footer/footer.component';
 import { HeaderComponent } from './pages/home/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import SpinnerComponent from './components/spinner/spinner.component';
 
 
 @Component({
@@ -20,19 +19,28 @@ import SpinnerComponent from './components/spinner/spinner.component';
        HeaderComponent,
        RouterLink,
        RouterModule,
-       SidebarComponent,
-      SpinnerComponent]
+       SidebarComponent]
 })
 export class AppComponent {
-  constructor(public usuarioService : UsuarioService,
-    private router: Router,
-    ){}
+  showHeader: boolean = true;
+  showFooter: boolean = true;
 
-  isValid(): boolean {
-    if (this.router.url != '/') {
-              return false;
-      }
-    return true;
+  constructor(private router: Router) {}
+
+  ngAfterViewInit() {
+    this.router.events.subscribe(() => {
+      this.updateLayout();
+    });
+  }
+
+  updateLayout() {
+    if (this.router.url == '/') {
+      this.showHeader = true;
+      this.showFooter = true;
+    } else {
+      this.showHeader = false;
+      this.showFooter = false;
+    }
   }
 }
 

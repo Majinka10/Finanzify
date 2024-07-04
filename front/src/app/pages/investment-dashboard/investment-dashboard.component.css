@@ -1,0 +1,30 @@
+.dashboard-container {
+    display: flex;
+    height: 100vh; /* Make sure the container takes the full viewport height */
+  }
+  
+  .overflow-auto {
+    overflow: auto;
+  }
+  
+  .card, .row {
+    max-width: 100%; /* Ensure no horizontal overflow */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+  }
+  
+  .col-10 {
+    flex: 1; /* Allow the main content to take up remaining space */
+  }
+  
+  .col-2 {
+    width: 300px; /* Fixed width for the sidebar */
+  }
+  
+  .bg-white {
+    background-color: white;
+  }
+  
+  .h-100 {
+    height: 100%;
+  }
+  

@@ -1,0 +1,15 @@
+<div class="card h-100">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="card-title">Overall Performance</h5>
+        <div class="">
+          <!-- <button class="btn btn-light mx-2">Yearly</button> -->
+          <button class="btn btn-light">Monthly</button>
+        </div>
+      </div>
+      <h2 class="mt-3">${{ currentValue }}</h2>
+      <p [ngClass]="performanceClass" class="text-success">{{ performanceText }}</p>
+      <canvas baseChart [type]="'line'" [data]="data"></canvas>
+    </div>
+  </div>
+  

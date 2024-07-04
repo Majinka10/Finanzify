@@ -2,14 +2,7 @@ package com.finanzify.back.model;
 
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 
 @Entity
 public class Inversion {
@@ -18,14 +11,14 @@ public class Inversion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "usuario")
     private Usuario usuario;
 
     private int cantidad;
     private int rendimiento;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "tipo")
     private tipo_inversion tipo;
 

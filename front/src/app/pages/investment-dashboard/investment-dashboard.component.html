@@ -1,0 +1,35 @@
+<div class="dashboard-container d-flex bg-light">
+    <div class="col-10 p-4 overflow-auto">
+        <div class="row mb-4">
+          <div class="col-sm-8">
+            <app-header-interno></app-header-interno>
+          </div>
+          <div class="col-sm-4">
+            <app-registrar-inversion/>
+          </div>
+        </div>
+        <!-- Overall Performance Section -->
+        <div class="row mb-4">
+          <div class="col-md-8">
+            <app-overall-performance/>
+          </div>
+          <div class="col-md-4">
+            <app-portfolio-value/>
+          </div>
+        </div>
+    
+        <!-- Portfolio Diversity Section -->
+        <div class="row">
+          <div class="col-md-4">
+            <app-platform-allocation/>
+          </div>
+          <div class="col-md-8">
+            <app-investments-chart/>
+          </div>
+        </div>
+    </div>
+    <div class="col-2 p-4 bg-white h-100 overflow-auto">
+      <app-movimientos-recientes></app-movimientos-recientes>
+    </div>
+</div>
+  

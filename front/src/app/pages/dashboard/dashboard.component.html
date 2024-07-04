@@ -1,63 +1,59 @@
-<div class="m-0 p-0 bg-light d-flex" *ngIf="usuarioCargado">
-<!-- <div class="m-0 p-0 bg-light d-flex"> -->
-    <div class="col-md-10 p-3">
-        <div class="row">
-            <div class="col-sm-4">
-                <app-header-interno/>
-            </div>
-            <div class="col-sm-4">
-                <app-registrar-ingreso />
-            </div>
-            <div class="col-sm-4">
-                <app-registrar-gasto />
-            </div>
+<div class="dashboard-container d-flex bg-light" *ngIf="usuarioCargado">
+    <div class="col-10 p-4 overflow-auto">
+      <div class="row mb-4">
+        <div class="col-sm-4">
+          <app-header-interno></app-header-interno>
         </div>
-        <div class="container overflow-hidden pt-4 px-0 text-left">
-            <div class="row"> 
-                <div class="col-sm-4">
-                    <div class="card p-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Ingresos</h5>
-                            <h2 class="card-subtitle mb-2 text-body-secondary">${{balance.ingresos.toLocaleString()}}</h2>
-                            <p class="card-text"><span style="color: green;"><i class="bi bi-chevron-double-up"></i> 6.5%</span> frente a los últimos 30 días</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card p-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Gastos</h5>
-                            <h2 class="card-subtitle mb-2 text-body-secondary">${{balance.egresos.toLocaleString()}}</h2>
-                            <p class="card-text"><span style="color: red;"><i class="bi bi-chevron-double-up"></i> 4.5%</span> frente a los últimos 30 días</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card p-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Ahorros</h5>
-                            <h2 class="card-subtitle mb-2 text-body-secondary">${{balance.ahorros.toLocaleString()}}</h2>
-                            <p class="card-text"><span style="color: green;"><i class="bi bi-chevron-double-up"></i> 3.4%</span> frente a los últimos 30 días</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-2 bg-light">
-                <div class="col p-3">
-                    <app-distribucion-gastos></app-distribucion-gastos>
-                </div>
-                <div class="col p-3 d-flex flex-column justify-content-between">
-                    <div class="">
-                        <app-balance />
-                    </div>
-                    <div class="">
-                        <app-gastos-versus-ingresos></app-gastos-versus-ingresos>
-                    </div>
-                </div>
-            </div>
+        <div class="col-sm-4">
+          <app-registrar-ingreso></app-registrar-ingreso>
         </div>
+        <div class="col-sm-4">
+          <app-registrar-gasto></app-registrar-gasto>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-sm-4">
+          <div class="card p-3">
+            <div class="card-body">
+              <h5 class="card-title">Ingresos</h5>
+              <h2 class="card-subtitle mb-2 text-body-secondary">${{balance.ingresos.toLocaleString()}}</h2>
+              <p class="card-text">
+                <span style="color: green;"><i class="bi bi-chevron-double-up"></i> 6.5%</span> frente a los últimos 30 días
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card p-3">
+            <div class="card-body">
+              <h5 class="card-title">Gastos</h5>
+              <h2 class="card-subtitle mb-2 text-body-secondary">${{balance.egresos.toLocaleString()}}</h2>
+              <p class="card-text">
+                <span style="color: red;"><i class="bi bi-chevron-double-up"></i> 4.5%</span> frente a los últimos 30 días
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card p-3">
+            <div class="card-body">
+              <h5 class="card-title">Ahorros</h5>
+              <h2 class="card-subtitle mb-2 text-body-secondary">${{balance.ahorros.toLocaleString()}}</h2>
+              <p class="card-text">
+                <span style="color: green;"><i class="bi bi-chevron-double-up"></i> 3.4%</span> frente a los últimos 30 días
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <app-gastos-versus-ingresos></app-gastos-versus-ingresos>
+        </div>
+      </div>
     </div>
-    <div class="col p-3 bg-white">
-        <app-movimientos-recientes></app-movimientos-recientes>
+    <div class="col-2 p-4 bg-white h-100 overflow-auto">
+      <app-movimientos-recientes></app-movimientos-recientes>
     </div>
-</div>
+  </div>
+  
