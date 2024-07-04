@@ -33,14 +33,14 @@ export class RegistrarInversionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.inversionService.getTiposInversion().subscribe(
-    //   (tipos: any) => {
-    //     this.tiposInversion = tipos;
-    //   },
-    //   (error) => {
-    //     console.error('Error al obtener los tipos de inversión:', error);
-    //   }
-    // );
+    this.inversionService.getTiposInversion().subscribe(
+      (tipos: any) => {
+        this.tiposInversion = tipos;
+      },
+      (error) => {
+        console.error('Error al obtener los tipos de inversión:', error);
+      }
+    );
   }
 
   tipoSeleccionado: string = '';
@@ -100,15 +100,15 @@ export class RegistrarInversionComponent implements OnInit {
           usuario: user
         };
 
-        console.log(inversion)
+        // console.log(inversion)
 
-        // this.inversionService.registroInversion(inversion).subscribe(response => {
-        //   this.usuarioService.update();
-        //   this.modalService.dismissAll();
-        //   },
-        //   error => {
-        //     console.error('Error al registrar la inversión:', error);
-        //   });
+        this.inversionService.registroInversion(inversion).subscribe(response => {
+          this.usuarioService.update();
+          this.modalService.dismissAll();
+          },
+          error => {
+            console.error('Error al registrar la inversión:', error);
+          });
       });
     } else {
       console.log('Formulario inválido, verifica los campos');
