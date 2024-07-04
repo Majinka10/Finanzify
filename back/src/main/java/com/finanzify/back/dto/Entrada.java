@@ -1,7 +1,5 @@
 package com.finanzify.back.dto;
 
-import java.util.Date;
-
 public class Entrada {
     private int cantidad;
     private int tipo;

@@ -5,7 +5,6 @@ import com.finanzify.back.dto.SalidaDay;
 import com.finanzify.back.dto.SalidaDayType;
 import com.finanzify.back.dto.UserDTO;
 import com.finanzify.back.model.Egreso;
-import com.finanzify.back.model.Ingreso;
 import com.finanzify.back.service.EgresoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
