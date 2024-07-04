@@ -18,6 +18,7 @@ export class InversionService {
   constructor(private http: HttpClient) {}
 
   urlInversion = "http://localhost:8080/inversion";
+  urlTipo = "http://localhost:8080/tipo";
 
   getInversiones(usuario: any): Observable<Inversion[]> {
     return this.http.get<Inversion[]>(this.urlInversion + "/usuario/" + usuario.correo);
@@ -25,6 +26,14 @@ export class InversionService {
 
   getCurrentValue(inversiones: Inversion[]): number {
     return inversiones.reduce((sum, inv) => sum + inv.rendimiento, 0);
+  }
+
+  getTiposInversion() {
+    return this.http.get(this.urlTipo + "/inversion");
+  }
+
+  registroInversion(inversion: any) {
+    return this.http.post(this.urlInversion + "/registro", inversion);
   }
 
   getInvestedValue(inversiones: Inversion[]): number {
